@@ -1,32 +1,29 @@
-import threading
-import random
+from neat.genome import Genome
+from neat.geneh import GeneHistory
+import pygame
 
-val = 0
+gh = GeneHistory(5, 4)
 
+g = Genome(gh)
+for i in range(100):
+    g.mutate()
 
-def sayHello():
-    global val
-    nos = []
-    for i in range(10000):
-        nos.append(random.random())
-        print(nos[i])
-    val = nos[random.randint(0, 10000)]
+print(g)
 
+screen = pygame.display.set_mode((600, 600))
+running = True
+while running:
+    for event in pygame.event.get():
+        if event == pygame.QUIT:
+            running = False
 
-# Basic threading code
-def main():
-    threads = []
-    for _ in range(50):
-        thread = threading.Thread(target=sayHello)
-        threads.append(thread)
-        thread.start()
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_q]:
+        running = False
 
-    for thread in threads:
-        thread.join()
+    # W Show
+    screen.fill((255, 255, 255))
+    g.show(screen)
+    pygame.display.update()
 
-
-if __name__ == "__main__":
-    main()
-    # for i in range(50):
-    #     sayHello()
-    pass
+pygame.quit()
