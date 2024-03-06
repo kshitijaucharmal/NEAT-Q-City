@@ -1,25 +1,20 @@
-import json
+import toml
 import random
 from pprint import pprint
 
 
 class StatManager:
-    def __init__(self, mappings_file="mappings.json") -> None:
-        self.all_stats = {
-            "Healthcare": 0.0,
-            "Employment": 0.0,
-            "Pollution": 0.0,
-            "Literacy": 0.0,
-            "Recreation": 0.0,
-            "GreenSpace": 0.0,
-            "PropertyValue": 0.0,
-        }
-        self.randomize_stats()
-
+    def __init__(self, mappings_file="data.toml") -> None:
+        self.all_stats = {}
         self.all_mappings = {}
+
         with open(mappings_file) as f:
             # List of mappings
-            self.all_mappings = dict(json.load(f))
+            self.full_data = toml.load(f)
+            self.all_mappings = self.full_data["actions"]
+            self.all_stats = self.full_data["stats"]
+
+        self.randomize_stats()
         pass
 
     def randomize_stats(self):
@@ -44,3 +39,9 @@ class StatManager:
         for stat in self.all_mappings[action_name].keys():
             self.all_stats[stat] += self.all_mappings[action_name][stat]
         pass
+
+
+sm = StatManager()
+sm.print_stats()
+sm.take_action("BuildPark")
+sm.print_stats()
