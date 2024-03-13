@@ -134,8 +134,18 @@ class Genome:
         for i in range(len(output)):
             # Normal error
             errors.append((target[i] - output[i]))
-        print("Error :", errors)
 
+        non_lin = lambda x: x * (1 - x)
+
+        # Output layer
+        out_layer_corrections = []
+        for i, err in enumerate(errors):
+            correction = non_lin(output[i]) * err * 0.03  # lr
+            out_layer_corrections.append(correction)
+            pass
+
+        print("Error: ", errors)
+        print("Corrections: ", out_layer_corrections)
         pass
 
     # Get Outputs

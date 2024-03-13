@@ -1,34 +1,18 @@
 from neat.genome import Genome
 from neat.geneh import GeneHistory
-import pygame
+import random
 
-gh = GeneHistory(5, 4)
+gh = GeneHistory(4, 2)
 
-ins = [0.1, 0.2, 0.3, 0.4, 0.5]
+ins = [(random.random()) for _ in range(gh.n_inputs)]
+targets = [(0.0 if (random.random() < 0.5) else 1.0) for _ in range(gh.n_outputs)]
 
 g = Genome(gh)
 for i in range(100):
     g.mutate()
 
+
 print(g)
-
-screen = pygame.display.set_mode((600, 600))
-running = True
-while running:
-    for event in pygame.event.get():
-        if event == pygame.QUIT:
-            running = False
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_b:
-                g.backpropagate(inputs=ins, target=[1, 0, 0, 0])
-
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_q]:
-        running = False
-
-    # W Show
-    screen.fill((255, 255, 255))
-    g.show(screen)
-    pygame.display.update()
-
-pygame.quit()
+print("Inputs: ", end=f"{ins}\n")
+print()
+g.backpropagate(ins, targets)

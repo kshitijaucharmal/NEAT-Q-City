@@ -31,7 +31,7 @@ for p in ports:
     thread = threading.Thread(target=open_port, args=(p,))
     threads.append(thread)
     thread.start()
-print("All ports bound")
+print("All ports bound", ports)
 
 for thread in threads:
     thread.join()
