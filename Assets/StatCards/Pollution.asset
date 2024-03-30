@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: Pollution
+  m_EditorClassIdentifier: Assembly-CSharp::StatCard
+  statName: Pollution
+  icon: {fileID: 2800000, guid: 3aa1a67ace61370498076cd87aff867f, type: 3}
+  maxValue: 100
+  defaultvalue: 80
+  valueSlider: {fileID: 0}
+  backPanel: {fileID: 2800000, guid: 05fd69b3ac8646b4fa985e6a3a0d5434, type: 3}
+  valueBackground: {fileID: 2800000, guid: d34873b28f9372649b97d1d50961c7ce, type: 3}

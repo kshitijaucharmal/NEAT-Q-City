@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: PopulationCard
+  m_EditorClassIdentifier: Assembly-CSharp::StatCard
+  statName: Population
+  icon: {fileID: 2800000, guid: c34fb90063b860a48a0fdd81e177f560, type: 3}
+  maxValue: 100
+  defaultvalue: 50
+  valueSlider: {fileID: 0}
+  backPanel: {fileID: 2800000, guid: 33f64c3115261244881b3032648bfc43, type: 3}
+  valueBackground: {fileID: 2800000, guid: 036188184b11c2449b2fb2969d1c6a1a, type: 3}

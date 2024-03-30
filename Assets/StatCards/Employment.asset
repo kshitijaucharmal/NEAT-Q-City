@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: Employment
+  m_EditorClassIdentifier: Assembly-CSharp::StatCard
+  statName: Employment
+  icon: {fileID: 2800000, guid: 7d508760a2f5b9b499217ee38cd18172, type: 3}
+  maxValue: 100
+  defaultvalue: 60
+  valueSlider: {fileID: 0}
+  backPanel: {fileID: 2800000, guid: 816c11d40d1ca63409824c7e163b952a, type: 3}
+  valueBackground: {fileID: 2800000, guid: ec253d02eafe8844f84d8ce78d40065f, type: 3}
