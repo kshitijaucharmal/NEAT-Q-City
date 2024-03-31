@@ -1,38 +1,47 @@
 using System;
+using System.Collections;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DataReciever : MonoBehaviour {
 
   private TcpClient socketConn;
-  private Thread clientRecvThread;
+  private Thread clientRcvThread;
 
-  [SerializeField] private TMP_Text port1;
+  [SerializeField] private StateManager stateManager;
+  [Range(0f, 1f)]
+  [SerializeField] private float timeBtwnChange = 0.1f;
 
   [SerializeField] private string host = "localhost";
   [SerializeField] private int port = 65432;
 
-  void Start() { ConnectToServer(); }
+  // 10 states
+  private string serverMsg;
+  private string[] allStates = new string[10];
 
-  void ConnectToServer() {
+  private float timeCtr = 0;
+
+  private bool messagePresent = false;
+  private bool exit = false;
+
+  void Start() { 
     try {
-      clientRecvThread = new Thread(Listen);
-      clientRecvThread.IsBackground = true;
-      clientRecvThread.Start();
-    } catch (Exception e) {
-      Debug.Log("Cannot Connect due to: " + e);
+      clientRcvThread = new Thread(Listen);
+      clientRcvThread.IsBackground = true;
+      clientRcvThread.Start();
+    } catch(Exception e){
+      Debug.Log("Cannot connect: "+ e);
     }
   }
 
-  private string serverMsg = "0";
   void Listen() {
     try {
       socketConn = new TcpClient(host, port);
       Byte[] bytes = new Byte[1024];
-      while (true) {
+      while (clientRcvThread.IsAlive) {
         using (NetworkStream stream = socketConn.GetStream()) {
           int length;
           while ((length = stream.Read(bytes, 0, bytes.Length)) != 0) {
@@ -41,23 +50,39 @@ public class DataReciever : MonoBehaviour {
             serverMsg = Encoding.ASCII.GetString(incomingData);
 
             // Decode message here
+            allStates = serverMsg.Split(",");
+            messagePresent = true;
 
             // Send 'next' after receiving a message
             byte[] nextMessage = Encoding.ASCII.GetBytes("next");
             stream.Write(nextMessage, 0, nextMessage.Length);
 
-            // Actually also send which element to send
-            // Formatting: 01,05 <- Population number, state
+            // Send 'exit' to kill
+            if(exit){
+              byte[] exitMessage = Encoding.ASCII.GetBytes("exit");
+              stream.Write(exitMessage, 0, exitMessage.Length);
+            }
           }
         }
       }
     } catch (SocketException e) {
       Debug.Log("Socket Exception " + e);
+      messagePresent = false;
     }
   }
 
   // Update is called once per frame
   void Update() {
-    if(port1 != null) port1.text = serverMsg;
+    if(messagePresent && timeCtr > timeBtwnChange){
+      stateManager.GetStates(allStates);
+      timeCtr = 0;
+    }
+    else{
+      timeCtr += Time.deltaTime;
+    }
+  }
+
+  void OnDestroy(){
+    exit = true;
   }
 }
