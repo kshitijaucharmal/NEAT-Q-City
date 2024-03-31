@@ -20,9 +20,21 @@ def open_port(p):
     print(f"Connected to {addr}")
 
     while True:
-        msg = f"Random number is: {np.random.random()}"
+
+        # get current state
+        n_states = 10
+        allStates = [
+            (round(np.random.random() * 0.08 - 0.04, 4)) for _ in range(n_states)
+        ]
+
+        msg = ""
+        for v in allStates:
+            msg += str(v) + ","
+        msg = msg[:-1]
+
         conn.sendall(str(msg).encode())
         cmd = conn.recv(1024).decode()
+
         if "next" in cmd:
             continue
 
