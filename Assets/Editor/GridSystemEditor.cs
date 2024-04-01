@@ -16,7 +16,7 @@ public class GridSystemEditor : Editor {
 
     // Generate base
     if (GUILayout.Button("Place Building")) {
-      myTarget.Place(myTarget.buildingToPlace);
+      myTarget.Place();
     }
     if (GUILayout.Button("Clean")) {
       myTarget.Clean();

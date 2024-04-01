@@ -4,14 +4,17 @@ using UnityEngine;
 public class GridSystem : MonoBehaviour {
   [SerializeField] private Vector2Int gridSize = new Vector2Int(20, 20);
   [SerializeField] private GameObject basePrefab;
+  [SerializeField] private Vector2Int origin;
 
   public Building buildingToPlace;
   private bool[,] grid;
   private Transform city;
+  private bool basePresent = false;
 
   void Awake() { 
     city = new GameObject("City").transform;
     city.parent = transform;
+    if(!basePresent) GenerateBase();
     grid = new bool[gridSize.x,gridSize.y];
     for(int i = 0; i < gridSize.x; i++){
       for(int j = 0; j < gridSize.y; j++){
@@ -21,7 +24,8 @@ public class GridSystem : MonoBehaviour {
   }
 
   // Place building at position
-  public void Place(Building building) {
+  public void Place() {
+    var building = buildingToPlace;
     building.SetHeight();
     Vector2Int pos = FindPositionToPlace(building.size);
     if (pos.x >= 0 && pos.y >= 0) {
@@ -75,7 +79,6 @@ public class GridSystem : MonoBehaviour {
         if(y >= size.y) pos.y = j;
       }
     }
-    Debug.Log("Position is: " + pos.ToString());
     if(pos != -Vector2Int.one){
       SetOccupancy(pos, size);
     }else{
@@ -95,17 +98,12 @@ public class GridSystem : MonoBehaviour {
       }
       sb.Append("\n");
     }
-
-    Debug.Log(sb);
   }
 
   public void GenerateBase() {
-    for (int i = 0; i < gridSize.x; i++) {
-      for (int j = 0; j < gridSize.y; j++) {
-        Vector3 pos = transform.position + new Vector3(i, 0, j);
-        Instantiate(basePrefab, pos, basePrefab.transform.rotation, transform);
-      }
-    }
+    Vector3 pos = transform.position + new Vector3(origin.x + gridSize.x/2, 0, origin.y + gridSize.y/2);
+    Transform b = Instantiate(basePrefab, pos, basePrefab.transform.rotation, transform).transform;
+    b.localScale = new Vector3(gridSize.x, gridSize.y, 1f);
   }
 
   public void Clean(){
@@ -123,6 +121,6 @@ public class GridSystem : MonoBehaviour {
   }
 
   void Update(){
-    if(Input.GetKeyDown(KeyCode.P)) Place(buildingToPlace);
+    if(Input.GetKeyDown(KeyCode.P)) Place();
   }
 }
