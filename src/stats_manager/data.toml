@@ -1,22 +1,78 @@
-# All Stats
+# All Stats (10)
 [stats]
+Population = 0
+Pollution = 0
+Recreation = 0
+Literacy = 0
+PublicSafety = 0
+HouseholdIncome = 0
+GreenSpace = 0
 Healthcare = 0
 Employment = 0
-Pollution = 0
-Literacy = 0
-Recreation = 0
-GreenSpace = 0
-PropertyValue = 0
+InternetCoverage = 0
 
-# Actions
+# Actions (10)
 [actions.BuildHospital]
-Healthcare = 1
+Healthcare = 0.8
 Employment = 0.2
-Pollution = 0.1
+Pollution = 0.2
 Literacy = 0.1
+Recreation = 0.1
 
 [actions.BuildPark]
 Recreation = 0.8
-Pollution = -0.3
+Pollution = -0.5
 GreenSpace = 0.6
-PropertyValue = 0.1
+Employment = 0.1
+HouseholdIncome = 0.1
+
+[actions.BuildFactory]
+Pollution = 0.8
+Employment = 0.7
+HouseholdIncome = 0.5
+GreenSpace = -0.4
+PublicSafety = -0.3
+
+[actions.BuildTransport]
+Pollution = 0.5
+Employment = 0.6
+Recreation = -0.3
+PublicSafety = -0.1
+
+[actions.BuildEducationInstitutes]
+Literacy = 0.7
+Employment = 0.3
+Population = 0.3
+Recreation = 0.1
+
+[actions.BuildResidentialBuilding]
+Population = 0.6
+Employment = 0.4
+HouseholdIncome = 0.3
+GreenSpace = -0.2
+PublicSafety = 0.2
+
+[actions.BuildOffices]
+Employment = 0.8
+HouseholdIncome = 0.7
+Literacy = 0.1
+Pollution = 0.1
+
+[actions.DevelopScienceCenter]
+Literacy = 0.8
+Employment = 0.5
+Pollution = 0.2
+Recreation = 0.2
+
+[actions.BuildFarm]
+GreenSpace = 0.8
+Employment = -0.4
+HouseholdIncome = 0.2
+Pollution = -0.4
+
+[actions.DevelopRenewableEnergy]
+Pollution = -0.6
+Employment = 0.5
+HouseholdIncome = 0.2
+GreenSpace = 0.2
+
