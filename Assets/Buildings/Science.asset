@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 886a294e6f2d6ccbc910385dcccf6c7d, type: 3}
-  m_Name: Building
+  m_Name: Science
   m_EditorClassIdentifier: 
-  name: Lamp
-  size: {x: 1, y: 1}
-  buildingHeight: -1
-  height: -1
-  material: {fileID: 2100000, guid: 11d7db7b6780c4981b58b73bc0a4ea0b, type: 2}
+  name: Science
+  size: {x: 3, y: 2}
+  buildingHeight: 2
+  height: 1
+  material: {fileID: 2100000, guid: 638a7994dbd8959a994522136fea26ec, type: 2}

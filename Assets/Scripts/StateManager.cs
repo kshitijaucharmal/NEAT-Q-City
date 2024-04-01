@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public enum States {
@@ -52,7 +51,7 @@ public class StateManager : MonoBehaviour {
 
     public void GetStates(string[] allStates){
         for(int i = 0; i < allStates.Length; i++){
-            values[i] += float.Parse(allStates[i]);
+            values[i] = float.Parse(allStates[i]);
         }
         // Set Values for values
         population.defaultvalue = values[0];

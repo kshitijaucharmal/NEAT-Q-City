@@ -4,19 +4,17 @@ public class OutlineHover : MonoBehaviour {
 
     public Outline outline;
     public MeshRenderer sr;
+    public GameObject statsUI;
 
     private CameraController cam;
 
     void Start(){
         cam = FindObjectOfType<CameraController>();
-        sr.enabled = false;
-        outline.enabled = false;
+        Toggle(false);
     }
 
     void OnMouseEnter(){
-        sr.enabled = true;
-        outline.enabled = true;
-
+        Toggle(true);
     }
 
     void OnMouseOver(){
@@ -30,7 +28,12 @@ public class OutlineHover : MonoBehaviour {
     }
 
     void OnMouseExit(){
-        sr.enabled = false;
-        outline.enabled = false;
+        Toggle(false);
+    }
+
+    void Toggle(bool b){
+        sr.enabled = b;
+        outline.enabled = b;
+        statsUI.SetActive(b);
     }
 }

@@ -4,7 +4,6 @@ using UnityEngine;
 public class StatCard
 {
     public States state;
-    public Texture icon;
 
     [Header("Normal value")]
     [Range(0f, 1f)]

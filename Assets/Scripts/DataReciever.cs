@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class DataReciever : MonoBehaviour {
@@ -16,7 +14,7 @@ public class DataReciever : MonoBehaviour {
   [SerializeField] private float timeBtwnChange = 0.1f;
 
   [SerializeField] private string host = "localhost";
-  [SerializeField] private int port = 65432;
+  [SerializeField] private Vector2Int ports = new(40000, 40016);
 
   // 10 states
   private string serverMsg;
@@ -28,16 +26,18 @@ public class DataReciever : MonoBehaviour {
   private bool exit = false;
 
   void Start() { 
-    try {
-      clientRcvThread = new Thread(Listen);
-      clientRcvThread.IsBackground = true;
-      clientRcvThread.Start();
-    } catch(Exception e){
-      Debug.Log("Cannot connect: "+ e);
+    for(int i = ports.x; i < ports.y; i++){
+      try {
+        clientRcvThread = new Thread(() => Listen(i));
+        clientRcvThread.IsBackground = true;
+        clientRcvThread.Start();
+      } catch(Exception e){
+        Debug.Log("Cannot connect: "+ e);
+      }
     }
   }
 
-  void Listen() {
+  void Listen(int port) {
     try {
       socketConn = new TcpClient(host, port);
       Byte[] bytes = new Byte[1024];
@@ -74,11 +74,13 @@ public class DataReciever : MonoBehaviour {
   // Update is called once per frame
   void Update() {
     if(messagePresent && timeCtr > timeBtwnChange){
+      Debug.Log(serverMsg);
       stateManager.GetStates(allStates);
       timeCtr = 0;
     }
     else{
       timeCtr += Time.deltaTime;
+      messagePresent = false;
     }
   }
 

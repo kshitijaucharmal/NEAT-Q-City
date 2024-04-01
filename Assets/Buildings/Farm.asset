@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 886a294e6f2d6ccbc910385dcccf6c7d, type: 3}
-  m_Name: Park
+  m_Name: Farm
   m_EditorClassIdentifier: 
-  name: Park
-  size: {x: 4, y: 2}
-  buildingHeight: 1
+  name: Farm
+  size: {x: 4, y: 4}
+  buildingHeight: 2
   height: 1
-  material: {fileID: 2100000, guid: 4657c8f31ac0bc592b7e6838961a3627, type: 2}
+  material: {fileID: 2100000, guid: f72f359da5771692cb32886767ae7909, type: 2}

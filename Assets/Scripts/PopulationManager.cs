@@ -22,9 +22,5 @@ public class PopulationManager : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
-        foreach(GridSystem gs in population){
-            gs.Place();
-        }
-    }
+    void Update() { }
 }

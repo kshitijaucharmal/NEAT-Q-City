@@ -7,21 +7,12 @@ public class GridSystem : MonoBehaviour {
   [SerializeField] private Vector2Int origin;
 
   public Building buildingToPlace;
+  public bool basePresent = false;
+
   private bool[,] grid;
   private Transform city;
-  private bool basePresent = false;
 
-  void Awake() { 
-    city = new GameObject("City").transform;
-    city.parent = transform;
-    if(!basePresent) GenerateBase();
-    grid = new bool[gridSize.x,gridSize.y];
-    for(int i = 0; i < gridSize.x; i++){
-      for(int j = 0; j < gridSize.y; j++){
-        grid[i, j] = false;
-      }
-    }
-  }
+  void Start() { }
 
   // Place building at position
   public void Place() {
@@ -46,7 +37,7 @@ public class GridSystem : MonoBehaviour {
 
   // Create a block at buildings position
   public Transform CreateBuilding(Building building) {
-    Vector3 dimensions = new Vector3(building.size.x, building.height, building.size.y);
+    Vector3 dimensions = new(building.size.x, building.height, building.size.y);
 
     // Create a box based on these dimensions
     var parent = new GameObject(building.name).transform;
@@ -101,9 +92,19 @@ public class GridSystem : MonoBehaviour {
   }
 
   public void GenerateBase() {
+    city = new GameObject("City").transform;
+    city.parent = transform;
     Vector3 pos = transform.position + new Vector3(origin.x + gridSize.x/2, 0, origin.y + gridSize.y/2);
-    Transform b = Instantiate(basePrefab, pos, basePrefab.transform.rotation, transform).transform;
+    Transform b = Instantiate(basePrefab, pos, basePrefab.transform.rotation, city).transform;
     b.localScale = new Vector3(gridSize.x, gridSize.y, 1f);
+    basePresent = true;
+    // Create Grid
+    grid = new bool[gridSize.x,gridSize.y];
+    for(int i = 0; i < gridSize.x; i++){
+      for(int j = 0; j < gridSize.y; j++){
+        grid[i, j] = false;
+      }
+    }
   }
 
   public void Clean(){
@@ -120,7 +121,5 @@ public class GridSystem : MonoBehaviour {
     
   }
 
-  void Update(){
-    if(Input.GetKeyDown(KeyCode.P)) Place();
-  }
+  void Update(){ }
 }
