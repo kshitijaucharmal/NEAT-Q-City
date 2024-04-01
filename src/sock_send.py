@@ -1,10 +1,11 @@
 import numpy as np
 import socket
+import threading
 
 HOST = "localhost"
-port = 65432
 
 msg = ""
+n_states = 10
 
 
 def open_port(p):
@@ -12,20 +13,16 @@ def open_port(p):
     # start server
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     s.bind((HOST, p))
-    print(f"{port} bound")
+    print(f"{p} bound")
 
     s.listen()
     conn, addr = s.accept()
 
-    print(f"Connected to {addr}")
+    print(f"Connected {conn} to {addr}")
 
     while True:
-
         # get current state
-        n_states = 10
-        allStates = [
-            (round(np.random.random() * 0.08 - 0.04, 4)) for _ in range(n_states)
-        ]
+        allStates = [(round(np.random.random(), 4)) for _ in range(n_states)]
 
         msg = ""
         for v in allStates:
@@ -42,4 +39,13 @@ def open_port(p):
             break
 
 
-open_port(port)
+ports = range(40000, 40016)
+threads = []
+for port in ports:
+    thread = threading.Thread(target=open_port, args=(port,))
+    threads.append(thread)
+    thread.start()
+
+# Wait for all threads to complete
+for thread in threads:
+    thread.join()
