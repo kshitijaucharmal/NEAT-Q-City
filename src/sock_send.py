@@ -18,11 +18,12 @@ def open_port(p):
     s.listen()
     conn, addr = s.accept()
 
-    print(f"Connected {conn} to {addr}")
+    print(f"Connected {p} to {addr}")
+    allStates = [(round(np.random.random(), 4)) for _ in range(n_states)]
+    allStates.append(np.random.randint(0, 10))
 
     while True:
-        # get current state
-        allStates = [(round(np.random.random(), 4)) for _ in range(n_states)]
+        allStates[-1] = np.random.randint(0, 10)
 
         msg = ""
         for v in allStates:
@@ -39,7 +40,7 @@ def open_port(p):
             break
 
 
-ports = range(40000, 40016)
+ports = range(4321, 4337)
 threads = []
 for port in ports:
     thread = threading.Thread(target=open_port, args=(port,))
