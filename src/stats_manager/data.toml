@@ -1,15 +1,15 @@
 # All Stats (10)
 [stats]
-Population = 0
-Pollution = 0
-Recreation = 0
-Literacy = 0
-PublicSafety = 0
-HouseholdIncome = 0
-GreenSpace = 0
-Healthcare = 0
-Employment = 0
-InternetCoverage = 0
+Population = 0       # Ideal: 0.5
+Pollution = 0        # Ideal: 0
+Recreation = 0       # Ideal: 1
+Literacy = 0         # Ideal: 1
+PublicSafety = 0     # Ideal: 1
+HouseholdIncome = 0  # Ideal: 1
+GreenSpace = 0       # Ideal: 1
+Healthcare = 0       # Ideal: 1
+Employment = 0       # Ideal: 1
+InternetCoverage = 0 # Ideal: 1
 
 # Actions (10)
 [actions.BuildHospital]
@@ -75,4 +75,3 @@ Pollution = -0.6
 Employment = 0.5
 HouseholdIncome = 0.2
 GreenSpace = 0.2
-

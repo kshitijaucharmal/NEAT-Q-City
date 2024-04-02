@@ -4,7 +4,7 @@ from pprint import pprint
 
 
 class StatManager:
-    def __init__(self, mappings_file="data.toml") -> None:
+    def __init__(self, mappings_file="src/stats_manager/data.toml") -> None:
         self.all_stats = {}
         self.all_mappings = {}
 
@@ -35,13 +35,7 @@ class StatManager:
         pass
 
     def take_action(self, action_name):
-        print("Taking action:", action_name)
+        # print("Taking action:", action_name)
         for stat in self.all_mappings[action_name].keys():
             self.all_stats[stat] += self.all_mappings[action_name][stat]
         pass
-
-
-sm = StatManager()
-sm.print_stats()
-sm.take_action("BuildPark")
-sm.print_stats()
