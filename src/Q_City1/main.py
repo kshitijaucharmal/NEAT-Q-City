@@ -1,6 +1,6 @@
 import numpy as np
-from Q_City1.environment import env
-from Q_City1.agent import Agent
+from environment import env
+from agent import Agent
 
 #should be changed
 input_values = [12, 4, 10, 6, 1, 40, 9, 4, 8, 3]

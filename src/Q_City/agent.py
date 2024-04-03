@@ -13,7 +13,6 @@ class Agent:
         #self.model=self.build_model()
         self.gh=GeneHistory(self.no_of_states,self.no_of_actions)
 
-
     def model(self):
         self.g = Genome(self.gh)
         for i in range(50):
