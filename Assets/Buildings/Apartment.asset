@@ -15,5 +15,5 @@ MonoBehaviour:
   name: Apartment
   size: {x: 1, y: 1}
   buildingHeight: -1
-  height: -1
+  height: 3
   material: {fileID: 2100000, guid: 11d7db7b6780c4981b58b73bc0a4ea0b, type: 2}

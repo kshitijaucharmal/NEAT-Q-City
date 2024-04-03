@@ -25,6 +25,7 @@ public class StatCardManager : MonoBehaviour{
 
     void SetValues(){
         if (slider != null){
+            slider.minValue = -1;
             slider.maxValue = 1;
             slider.value = card.defaultvalue;
         }

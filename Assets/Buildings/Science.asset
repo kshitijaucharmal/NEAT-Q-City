@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Science
   m_EditorClassIdentifier: 
   name: Science
-  size: {x: 3, y: 2}
+  size: {x: 2, y: 3}
   buildingHeight: 2
-  height: 1
+  height: 2
   material: {fileID: 2100000, guid: 638a7994dbd8959a994522136fea26ec, type: 2}

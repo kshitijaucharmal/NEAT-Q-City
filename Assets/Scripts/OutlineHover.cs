@@ -22,8 +22,11 @@ public class OutlineHover : MonoBehaviour {
         if(Input.GetMouseButtonDown(0)){
             cam.focus = true;
             Vector3 posToFocus = transform.position + new Vector3(-3,0, -3);
-            posToFocus.y = 20;
+            posToFocus.y = 17;
             cam.posToFocus = posToFocus;
+
+            // Set Selected City
+            FindObjectOfType<PopulationManager>().SelectCity(GetComponent<CityManager>().cityNumber);
         }
     }
 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Transport
   m_EditorClassIdentifier: 
   name: Transport
-  size: {x: 1, y: 3}
-  buildingHeight: 1
+  size: {x: 1, y: 1}
+  buildingHeight: 0.2
   height: 1
   material: {fileID: 2100000, guid: d6df7fbf6af1f93549b777ffca0e49bd, type: 2}

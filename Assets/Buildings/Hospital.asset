@@ -15,5 +15,5 @@ MonoBehaviour:
   name: Hospital
   size: {x: 2, y: 2}
   buildingHeight: 5
-  height: 0
+  height: 5
   material: {fileID: 2100000, guid: 4312e963412c76521bc910cb5cfccbe1, type: 2}

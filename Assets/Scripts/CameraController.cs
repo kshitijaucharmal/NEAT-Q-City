@@ -30,7 +30,7 @@ public class CameraController : MonoBehaviour {
 
     public void Focus(){
         transform.position = Vector3.Lerp(transform.position, posToFocus, 0.08f);
-        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, 12.86f, 0.08f);
+        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, 15, 0.08f);
     }
 
     void LateUpdate() {

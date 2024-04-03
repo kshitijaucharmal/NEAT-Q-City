@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Energy
   m_EditorClassIdentifier: 
   name: Energy
-  size: {x: 1, y: 2}
+  size: {x: 4, y: 4}
   buildingHeight: 3
-  height: 1
+  height: 4.5
   material: {fileID: 2100000, guid: 394cf259b98df9d22b6ce3e1f7a97430, type: 2}

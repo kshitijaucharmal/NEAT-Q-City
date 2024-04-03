@@ -41,7 +41,6 @@ public class StateManager : MonoBehaviour {
             _ => population,
         };
     }
-    float[] values = new float[10];
 
     public void Start(){
         for(int i = 0; i < values.Length; i++){
@@ -49,7 +48,9 @@ public class StateManager : MonoBehaviour {
         }
     }
 
-    public void GetStates(string[] allStates){
+    float[] values = new float[11];
+    public void GetStates(string serverMsg){
+        string[] allStates = serverMsg.Split(",");
         for(int i = 0; i < allStates.Length; i++){
             values[i] = float.Parse(allStates[i]);
         }
