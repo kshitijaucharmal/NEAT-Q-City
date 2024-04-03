@@ -4,7 +4,7 @@ from pprint import pprint
 
 
 class StatManager:
-    def __init__(self, mappings_file="data.toml") -> None:
+    def __init__(self, mappings_file="src/stats_manager/data.toml") -> None:
         self.all_stats = {}
         self.all_mappings = {}
 
@@ -35,13 +35,21 @@ class StatManager:
         pass
 
     def take_action(self, action_name):
-        print("Taking action:", action_name)
+        # print("Taking action:", action_name)
         for stat in self.all_mappings[action_name].keys():
             self.all_stats[stat] += self.all_mappings[action_name][stat]
+            self.all_stats[stat] = self.clamp(self.all_stats[stat], -1.0000, 1.0000)
         pass
 
+    def sample(self):
+        actions = list(self.all_mappings.keys())
+        n = random.randint(0, len(actions) - 1)
+        return (actions[n], n)
 
-sm = StatManager()
-sm.print_stats()
-sm.take_action("BuildPark")
-sm.print_stats()
+    def clamp(self, stat, min, max):
+        if stat < min:
+            return min
+        elif stat > max:
+            return max
+        else:
+            return stat
