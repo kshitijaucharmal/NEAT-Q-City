@@ -1,6 +1,6 @@
-from environment import Environment
-from agent import Agent
-from experience_replay import ExperienceReplay
+from Q_City.environment import Environment
+from Q_City.agent import Agent
+from Q_City.experience_replay import ExperienceReplay
 import time
 
 
@@ -50,4 +50,4 @@ if __name__ == '__main__':
             # Optionally, pause for half a second to evaluate the model
             # time.sleep(0.5)
 
-        agent.save(f'models/model.h5')
+        #agent.save(f'models/model.h5')

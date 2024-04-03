@@ -2,7 +2,7 @@ from neat.genome import Genome
 from neat.geneh import GeneHistory
 import pygame
 
-gh = GeneHistory(5, 4)
+gh = GeneHistory(5,4)
 
 inputs = [0.1, 0.2, 0.3, 0.4, 0.5]
 target=[0.153,0.76,0.124,0.28]

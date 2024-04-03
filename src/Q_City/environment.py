@@ -41,7 +41,7 @@ state_arr = [12, 4, 10, 6, 1, 40, 9, 4, 8, 3]
 class Environment:
     def __init__(self,no_of_states=10):
         self.no_of_states=no_of_states
-        #self.state = state
+        self.state = [0,0,0,0,0,0,0,0,0,0]
 
     def reset(self):
         # once an episode is done the environment gets reset to an random state
@@ -50,7 +50,7 @@ class Environment:
 
         return (self.get_state())
     
-    def move_by_agent(self,action):
+    def move_agent(self,action):
         done = False  # The episode is not done by default
         reward = [0,0,0,0,0,0,0,0,0,0]   # Initialize reward
 
@@ -78,8 +78,4 @@ class Environment:
         
         return reward, next_state,done
 
-
-
-env = Environment()
-print(env.reset())
 

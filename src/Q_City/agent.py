@@ -1,7 +1,5 @@
-from tensorflow.keras.layers import Dense
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.models import load_model
-
+from neat.genome import Genome
+from neat.geneh import GeneHistory
 import numpy as np
 
 class Agent:
@@ -12,24 +10,29 @@ class Agent:
         self.epsilon=1
         self.epsilon_decay=0.998
         self.epsilon_end=0.1
-        self.model=self.build_model()
+        #self.model=self.build_model()
+        self.gh=GeneHistory(self.no_of_states,self.no_of_actions)
 
 
-    def build_model(self):
-        model=Sequential([
-            Dense(128,activation='relu',input_shape=[self.no_of_states]),
-            Dense(64,activation='relu'),
-            Dense(32,activation='relu'),
-            Dense(10,activation='linear')
-        ])
+    def model(self):
+        self.g = Genome(self.gh)
+        for i in range(50):
+            self.g.mutate()
+        pass
 
-        model.compile(optimizer='adam',loss='mse')
-
-        return model
+    def predict(self,inputs):
+        return self.g.feed_forward(inputs)
     
-    def get_action(self):
+    def fit(self,inputs,targets,epochs):
+        for _ in range(epochs):
+            self.g.backpropogate(inputs, targets)
 
-        if np.random.rand() <= self.eplison:
+        mse=self.g.mean_squared_error(targets,self.predict(inputs))
+        print("Mean squared error:", mse)
+    
+    def get_action(self,state):
+
+        if np.random.rand() <= self.epsilon:
             #Exploration
             action = np.random.randint(0,10)
         else:
@@ -38,8 +41,7 @@ class Agent:
             state=np.expand_dims(state,axis=0)
 
             #prdicting the q_values from the model
-            #q_values=self.model.predict(state,verbose=0)
-            q_values=self.model.predict(state)
+            q_values=self.predict(state)
             # Select and return the action with the highest Q-value
             action=np.argmax(q_values[0])
 
@@ -56,8 +58,8 @@ class Agent:
             next_states = np.array([experience.state for experience in experiences])
             dones = np.array([experience.state for experience in experiences])
 
-            current_q_value=self.model.predict(states,verbose=0)
-            next_q_values=self.model.predict(next_states,verbose=0)
+            current_q_value=self.predict(states)
+            next_q_values=self.predict(next_states)
 
             target_q_values=current_q_value.copy()
 
@@ -71,16 +73,16 @@ class Agent:
                     # [i, actions[i]] is the numpy equivalent of [i][actions[i]]
                     target_q_values[i, actions[i]] = rewards[i] + self.gamma * np.max(next_q_values[i])
 
-            current_q_value=self.model.predict(states,verbose=0)
-            next_q_values=self.model.predict(next_states,verbose=0)
+            current_q_value=self.predict(states)
+            next_q_values=self.predict(next_states)
 
-            self.model.fit(states,target_q_values,epochs=1,verbose=0)
+            self.fit(states,target_q_values,epochs=10)
 
-        def load(self,file_path):
-            self.model=load_model(file_path)
+        # def load(self,file_path):
+        #     self.model=load_model(file_path)
 
-        def save(self,file_path):
-            self.model.save(file_path)
+        # def save(self,file_path):
+        #     self.model.save(file_path)
 
 
 
