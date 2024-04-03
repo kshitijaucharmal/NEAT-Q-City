@@ -18,21 +18,8 @@ class Agent:
         self.num_episodes = 1000
         self.num_actions = num_actions
         self.num_states = num_states
-        #self.target_model = self.create_model(num_states, num_actions)
-        #self.target_model.set_weights(self.model.get_weights())
         self.gh=GeneHistory(self.num_states,self.num_actions)
         self.model()
-
-
-    # def create_model(self, num_states, num_actions):
-    #     model = Sequential()
-    #     model.add(InputLayer(input_shape=num_states))
-    #     model.add(Dense(32, activation='tanh'))
-    #     model.add(Dense(64, activation='relu'))
-    #     model.add(Dense(64, activation='relu'))
-    #     model.add(Dense(units=num_actions, activation='relu'))
-    #     model.compile(optimizer=Adam(), metrics=['accuracy'], loss=mean_squared_error)
-    #     return model
         
     #create model
     def model(self):
@@ -68,10 +55,12 @@ class Agent:
           for i, (state, action, reward, next_state, done) in enumerate(zip(states, actions, rewards, next_states, dones)):
               target_q_value = reward
               if not done:
-                  next_q_values = self.predict_clone(np.array([next_state]))[0]
+                  next_q_values = self.predict_clone(np.array([next_state])[0])
                   target_q_value += self.gamma * np.max(next_q_values)
 
-              q_values = self.predict(np.array([state]))[0]
+              print(target_q_value)  
+              q_values = self.predict(np.array([state])[0])
+              print(q_values)
               q_values[action] = target_q_value
               updated_q_values[i] = q_values
 
@@ -82,15 +71,11 @@ class Agent:
         if np.random.rand() < self.epsilon:
             return np.random.choice(self.num_actions)
         else:
-            q_values = self.predict(np.array([state]))[0]
+            q_values = self.predict(np.array([state])[0])
             return np.argmax(q_values)
 
     def store_experience(self, state, action, reward, next_state, done):
         self.replay_memory.append((state, action, reward, next_state, done))
 
-    # def update_target_model(self):
-    #     self.target_model.set_weights(self.model.get_weights())
 
-    # def predict(self):
-    #     return self.model.predict(self.num_states)
     

@@ -149,6 +149,8 @@ class Genome:
 
     # Forward Propogation
     def feed_forward(self, inputs):
+        print(f"inputs: ",inputs)
+        print(f"n_inputs: ",self.n_inputs)
         if len(inputs) != self.n_inputs:
             print("Wrong number of inputs")
             return [-1]
