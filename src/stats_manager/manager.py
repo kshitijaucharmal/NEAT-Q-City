@@ -38,4 +38,18 @@ class StatManager:
         # print("Taking action:", action_name)
         for stat in self.all_mappings[action_name].keys():
             self.all_stats[stat] += self.all_mappings[action_name][stat]
+            self.all_stats[stat] = self.clamp(self.all_stats[stat], -1.0000, 1.0000)
         pass
+
+    def sample(self):
+        actions = list(self.all_mappings.keys())
+        n = random.randint(0, len(actions) - 1)
+        return (actions[n], n)
+
+    def clamp(self, stat, min, max):
+        if stat < min:
+            return min
+        elif stat > max:
+            return max
+        else:
+            return stat

@@ -4,7 +4,8 @@ import socket
 
 # Server host and ports
 HOST = "localhost"
-ports = range(40000, 40016)
+ports = range(60000, 60016)
+
 
 def test_server(port):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -19,6 +20,7 @@ def test_server(port):
             s.sendall(b"next")
         # Send "exit" to terminate the connection
         s.sendall(b"exit")
+
 
 # Test the server on each port
 for port in ports:
