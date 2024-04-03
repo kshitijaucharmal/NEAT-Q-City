@@ -4,12 +4,19 @@ import pygame
 
 gh = GeneHistory(5, 4)
 
-ins = [0.1, 0.2, 0.3, 0.4, 0.5]
+inputs = [0.1, 0.2, 0.3, 0.4, 0.5]
+target=[0.153,0.76,0.124,0.28]
 
 g = Genome(gh)
-for i in range(100):
+for i in range(50):
     g.mutate()
 
+print(f"INPUTS:",inputs)
+pred=g.feed_forward(inputs)
+print(f"OUTPUTS:",pred)
+print(f"TARGET:",target)
+mse=g.mean_squared_error(target,pred)
+print("Mean squared error:", mse)
 print(g)
 
 screen = pygame.display.set_mode((600, 600))
@@ -20,7 +27,11 @@ while running:
             running = False
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_b:
-                g.backpropagate(inputs=ins, target=[1, 0, 0, 0])
+                g.backpropogate(inputs, target)
+            if event.key == pygame.K_a:
+                g.add_node()
+            if event.key == pygame.K_p:
+                print(g)
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_q]:
