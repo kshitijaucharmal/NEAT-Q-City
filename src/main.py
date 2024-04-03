@@ -1,6 +1,9 @@
 from Q_City.environment import Environment
 from Q_City.agent import Agent
 from Q_City.experience_replay import ExperienceReplay
+# from Q_City.deepqcolab import Environment
+# from Q_City.deepqcolab import Agent
+
 import time
 
 
