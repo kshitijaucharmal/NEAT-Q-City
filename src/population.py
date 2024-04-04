@@ -30,13 +30,13 @@ class Population:
         msg = ""
         for p in self.population:
             action = p.train()
-            print("action", action)
             # Add to message
             s = p.city_details(action)
             msg += s + ":"
 
         # Remove the last :
         msg = msg[:-1]
+        print(msg)
 
         # Send it
         conn.sendall(str(msg).encode())
@@ -73,11 +73,15 @@ class Population:
         while True:
             cmd = self.update(conn)
 
-            if "next" in cmd:
+            if "reset" in cmd:
+                print("Updated Generation")
+                self.reset()
                 continue
 
             if "exit" in cmd:
                 break
+            if "next" in cmd:
+                continue
 
         s.close()
 

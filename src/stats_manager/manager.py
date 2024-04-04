@@ -19,7 +19,7 @@ class StatManager:
 
     def randomize_stats(self):
         for name, _ in self.all_stats.items():
-            self.all_stats[name] = random.random() * 2 - 1
+            self.all_stats[name] = random.random()
 
     def print_stats(self):
         print("Current stats: ")
@@ -33,15 +33,11 @@ class StatManager:
         pass
 
     def take_action(self, action_number):
-        actions = [a for a in self.all_mappings.keys()]
-        self.take_action_by_name(actions[action_number])
-
-
-    def take_action_by_name(self, action_name):
+        actions = [a for a in list(self.all_mappings.keys())]
+        action_name = actions[action_number]
         for stat in self.all_mappings[action_name].keys():
             self.all_stats[stat] += self.all_mappings[action_name][stat]
-            self.all_stats[stat] = self.clamp(self.all_stats[stat], -1.0000, 1.0000)
-        pass
+            self.all_stats[stat] = self.clamp(self.all_stats[stat], 0.0000, 1.0000)
 
     def sample(self):
         actions = list(self.all_mappings.keys())
@@ -55,6 +51,7 @@ class StatManager:
             return max
         else:
             return stat
+
 
 # main function
 # stats_man = StatManager();
