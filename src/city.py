@@ -15,7 +15,7 @@ class City:
             gene_history=self.gh,
         )
         # The brain given by neat
-        self.brain = self.agent.init_model()
+        self.agent.init_model()
 
         self.stats = list(self.manager.all_stats.values())
         self.weights = {
@@ -51,14 +51,8 @@ class City:
     def stats_list(self):
         return [round(s, 4) for s in self.stats]
 
-    def crossover(self, partner):
-        # child = self.brain.crossover(partner.brain)
-        child = partner
-
-        return child
-
     def mutate(self):
-        # self.brain.mutate()
+        self.agent.g.mutate()
         pass
 
     def calculate_fitness(self):
