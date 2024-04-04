@@ -8,7 +8,7 @@ inputs = [0.1, 0.2, 0.3, 0.4, 0.5]
 target=[0.153,0.76,0.124,0.28]
 
 g = Genome(gh)
-for i in range(50):
+for i in range(1):
     g.mutate()
 
 print(f"INPUTS:",inputs)
