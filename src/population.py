@@ -1,5 +1,6 @@
 import socket
 import random
+import time
 
 from city import City
 
@@ -30,14 +31,14 @@ class Population:
             # Update
             # Taking action to update the stats
             # TODO: replace sample action by actual action
-            (action, action_number) = p.sample()
+            (action, action_number) = p.manager.sample()
             p.take_action(action)
 
             # Add to message
             s = p.city_details(action_number)
-            msg += s
+            msg += s + ":"
         # Remove the last :
-        msg = msg[-1]
+        msg = msg[:-1]
 
         # Send it
         conn.sendall(str(msg).encode())
@@ -46,7 +47,11 @@ class Population:
         return cmd
 
     def reset(self):
+        for i in range(self.pop_size):
+            self.population[i].calculate_fitness()
+
         self.population.sort(key=lambda x: x.fitness, reverse=True)
+        print("Best Fitness: ", self.population[0].fitness)
 
         for i in range(self.pop_size):
             parent1 = self.population[random.randint(0, 4)]
@@ -58,6 +63,7 @@ class Population:
             child.mutate()
             # Set child to population
             self.population[i] = child
+            self.population[i].reset()
 
     def start_server(self):
         # start server (socket)
@@ -74,13 +80,19 @@ class Population:
         while True:
             cmd = self.update(conn)
 
-            if "next" in cmd:
+            if "reset" in cmd:
+                print("Updated generation.")
+                self.reset()
                 continue
 
             if "exit" in cmd:
                 break
 
+            if "next" in cmd:
+                continue
+
         s.close()
 
 
 pop = Population(16)
+pop.start_server()

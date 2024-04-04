@@ -23,6 +23,14 @@ class City:
         self.brain = None
         pass
 
+    def reset(self):
+        self.manager = StatManager()
+        self.stats = self.manager.all_stats
+        self.fitness = 0
+
+        # self.brain.reset()
+        pass
+
     def city_details(self, action_taken):
         msg = ",".join(str(round(v, 4)) for v in self.stats.values())
         msg += "," + str(action_taken)
@@ -31,9 +39,9 @@ class City:
     def take_action(self, action=None):
         if not action:
             action, _ = self.manager.sample()
-        print(action)
         self.manager.take_action(action)
         self.stats = self.manager.all_stats
+        # print(list(self.stats.values()))
         pass
 
     def stats_list(self):
