@@ -21,6 +21,9 @@ class Genome:
         self.nodes = []
         self.genes = []
 
+        #batch size 
+        self.batch_size=2
+
         # Random fitness for now
         self.fitness = random.uniform(-2, 2)
         self.adjusted_fitness = 0
@@ -147,38 +150,44 @@ class Genome:
                 print("Something is wrong while seperating nodes")
         pass
 
-    # Forward Propogation
+    # Forward Propogationfor i in range(len(inputs)):
     def feed_forward(self, inputs):
-        print(f"inputs: ",inputs)
-        print(f"n_inputs: ",self.n_inputs)
-        if len(inputs) != self.n_inputs:
-            print("Wrong number of inputs")
-            return [-1]
+        print(f"inputs inside feedforward:",inputs)
+        final_outputs = np.zeros((self.batch_size, self.n_outputs))
+        for i in range(len(inputs)):
+            print(f"feed inputs: ",inputs[i])
+            print(f"feed n_inputs: ",self.n_inputs)
+            if len(inputs[0]) != self.n_inputs:
+                print("Wrong number of inputs")
+                return [-1]
 
-        # Input layers outputs are the specified inputs
-        for i in range(self.n_inputs):
-            self.nodes[i].sum=inputs[i]
-            self.nodes[i].output = inputs[i]
+            # Input layers outputs are the specified inputs
+            for j in range(self.n_inputs):
+                self.nodes[j].sum=inputs[i][j]
+                self.nodes[j].output = inputs[i][j]
 
-        # Connect genes (Clean references)
-        self.connect_genes()
+            # Connect genes (Clean references)
+            self.connect_genes()
 
-        # calculate layer wise
-        for layer in range(2, self.gh.highest_hidden + 1):
-            nodes_in_layer = []
-            for n in range(len(self.nodes)):
-                if self.nodes[n].layer == layer:
-                    nodes_in_layer.append(self.nodes[n])
+            # calculate layer wise
+            for layer in range(2, self.gh.highest_hidden + 1):
+                nodes_in_layer = []
+                for n in range(len(self.nodes)):
+                    if self.nodes[n].layer == layer:
+                        nodes_in_layer.append(self.nodes[n])
 
-            for n in range(len(nodes_in_layer)):
-                nodes_in_layer[n].calculate()
+                for n in range(len(nodes_in_layer)):
+                    nodes_in_layer[n].calculate()
 
-        # calculate final outputs at last
-        final_outputs = []
-        for n in range(self.n_inputs, self.n_inputs + self.n_outputs):
-            self.nodes[n].calculate()
-            final_outputs.append(self.nodes[n].output)
-
+            # calculate final outputs at last
+            #final_outputs = np.zeros((self.batch_size, self.n_outputs))
+            j=0
+            for n in range(self.n_inputs, self.n_inputs + self.n_outputs):
+                self.nodes[n].calculate()
+                final_outputs[i][j]=(self.nodes[n].output)
+                j+=1
+            print(f" feed final_outputs:",final_outputs)
+            
         # return outputs
         return final_outputs
 
@@ -199,12 +208,15 @@ class Genome:
     
 
     def backpropogate(self,inputs,targets):
+        print(f"back inputs:",inputs)
+        print(f"back targets:",targets)
         #learning_rate
         self.lr=0.001
         #calling seprate function to get the layerwise list
         self.seperate()
         # generating the outputs
         self.predicted_output=self.feed_forward(inputs)
+        print("back predicted_output:",self.predicted_output)
 
         for i in range(len(self.nodes)):
             self.nodes[i].value=0

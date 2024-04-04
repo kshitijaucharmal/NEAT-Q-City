@@ -4,7 +4,7 @@ from neat.geneh import GeneHistory
 import numpy as np
 
 memory_size = 5000
-batch_size = 3
+batch_size = 2
 
 class Agent:
     def __init__(self, num_states, num_actions):
@@ -34,8 +34,7 @@ class Agent:
     
     def predict_clone(self,inputs):
         return self.g_clone.feed_forward(inputs)
-    
-    
+       
     def fit(self,inputs,targets,epochs):
         for _ in range(epochs):
             self.g.backpropogate(inputs, targets)
@@ -55,15 +54,19 @@ class Agent:
           for i, (state, action, reward, next_state, done) in enumerate(zip(states, actions, rewards, next_states, dones)):
               target_q_value = reward
               if not done:
-                  next_q_values = self.predict_clone(np.array([next_state])[0])
+                  print(f"next_state:",np.array([next_state]))
+                  next_q_values = self.predict_clone(np.array([next_state]))[0]
                   target_q_value += self.gamma * np.max(next_q_values)
 
-              print(target_q_value)  
-              q_values = self.predict(np.array([state])[0])
-              print(q_values)
+              print(f"target_q_value:",target_q_value)  
+              q_values = self.predict(np.array([state]))[0]
+              print(f"q_values:",q_values)
+              print(f"action:",action)
               q_values[action] = target_q_value
               updated_q_values[i] = q_values
 
+          print(f"states:",np.array(states))
+          print(f"updated_q_values",updated_q_values)
           self.fit(np.array(states), updated_q_values, epochs=1)
 
 
@@ -71,7 +74,7 @@ class Agent:
         if np.random.rand() < self.epsilon:
             return np.random.choice(self.num_actions)
         else:
-            q_values = self.predict(np.array([state])[0])
+            q_values = self.predict(np.array([state]))[0]
             return np.argmax(q_values)
 
     def store_experience(self, state, action, reward, next_state, done):
