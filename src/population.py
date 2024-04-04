@@ -2,9 +2,10 @@ import socket
 import random
 
 from city import City
+from neat.geneh import GeneHistory
 
 HOST = "localhost"
-PORT = 65432
+PORT = 50000
 
 msg = ""
 
@@ -15,8 +16,9 @@ class Population:
         self.population = []
         self.n_states = 10
         self.n_actions = 10
+        self.gene_history = GeneHistory(10, 10)
         for _ in range(pop_size):
-            self.population.append(City())
+            self.population.append(City(self.gene_history))
             self.population[-1].calculate_fitness()
 
         self.generation = 1
@@ -27,15 +29,12 @@ class Population:
     def update(self, conn):
         msg = ""
         for p in self.population:
-            # (action, action_number) = p.sample()
-            # p.take_action_name(action)
-            action=p.take_action()
-
+            action = p.train()
             # Add to message
             s = p.city_details(action)
             msg += s + ":"
         # Remove the last :
-        msg = msg[-1]
+        msg = msg[:-1]
 
         # Send it
         conn.sendall(str(msg).encode())
@@ -82,3 +81,4 @@ class Population:
 
 
 pop = Population(16)
+pop.start_server()

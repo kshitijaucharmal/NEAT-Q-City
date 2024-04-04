@@ -1,6 +1,7 @@
 import pygame
 import math
 
+
 class Node:
     def __init__(self, number, layer):
         # Number in the network
@@ -8,15 +9,15 @@ class Node:
         # On Layer
         self.layer = layer
         # for weighted sum
-        self.sum = 0 
+        self.sum = 0
         # for output =sigmoid(sum)
-        self.output=0 # for output ofcourse
+        self.output = 0  # for output ofcourse
         # for storing certain value required during backpropogation
-        self.value=0 
+        self.value = 0
         # all genes coming to this node
         self.in_genes = []
         # Sigmoid activation
-        self.sigmoid = lambda x : 1 / (1 + math.exp(-x))
+        self.sigmoid = lambda x: 1 / (1 + math.exp(-x))
 
         # For Showing
         self.color = (255, 255, 255)
@@ -36,17 +37,17 @@ class Node:
     # Calculate output value
     def calculate(self):
         if self.layer == 0:
-            print('No calculations for first layer')
+            print("No calculations for first layer")
             return
 
         s = 0
         for g in self.in_genes:
             if g.enabled:
-                # weighted sum 
+                # weighted sum
                 s += g.in_node.output * g.weight
         self.sum = s
         # applying activation function to weighted sum to calucate its output
-        self.output = round(self.sigmoid(self.sum),4)
+        self.output = round(self.sigmoid(self.sum), 4)
         pass
 
     # Only for showing
