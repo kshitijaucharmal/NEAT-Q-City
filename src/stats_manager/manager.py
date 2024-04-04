@@ -26,16 +26,12 @@ class StatManager:
         pprint(self.all_stats)
         print()
 
-    def step(self):
+    def take_random_action(self):
         action = random.choice(list(self.all_mappings.keys()))
         self.take_action(action)
-        self.print_stats()
-
-        # inc episode
         pass
 
     def take_action(self, action_name):
-        # print("Taking action:", action_name)
         for stat in self.all_mappings[action_name].keys():
             self.all_stats[stat] += self.all_mappings[action_name][stat]
             self.all_stats[stat] = self.clamp(self.all_stats[stat], -1.0000, 1.0000)
