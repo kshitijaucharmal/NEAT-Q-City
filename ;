@@ -30,13 +30,12 @@ class Population:
         msg = ""
         for p in self.population:
             action = p.train()
-            print("action", action)
             # Add to message
             s = p.city_details(action)
             msg += s + ":"
-
         # Remove the last :
         msg = msg[:-1]
+        print(msg)
 
         # Send it
         conn.sendall(str(msg).encode())
