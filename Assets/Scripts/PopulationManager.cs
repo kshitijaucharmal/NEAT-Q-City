@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class PopulationManager : MonoBehaviour {
@@ -8,12 +9,19 @@ public class PopulationManager : MonoBehaviour {
     public GameObject cityPrefab;
     public DataReciever reciever;
 
+    public TMP_Text generationText;
+    public int generation = 1;
+
     [HideInInspector] public CityManager[] population;
     [HideInInspector] public CityManager selectedCity;
     public StateManager mainStateManager;
 
+    private int episode = 0;
+    public int maxEpisodes = 400;
+
     // Start is called before the first frame update
     void Start() {
+        generationText.text = generation.ToString();
         // Create Population
         population = new CityManager[nPopulation.x * nPopulation.y];
         for(int i = 0; i < nPopulation.x; i++){
@@ -39,20 +47,47 @@ public class PopulationManager : MonoBehaviour {
     // Update is called once per frame
     void Update() { 
         if (reciever.messagePresent && reciever.serverMsg != null){
-            string[] serverMsgs = reciever.serverMsg.Split(";");
+            episode ++;
+            if(episode > maxEpisodes){
+                Reset();
+            }
+            string[] serverMsgs = reciever.serverMsg.Split(":");
             if(serverMsgs.Length != population.Length){
                 Debug.Log("Not enough inputs: " + serverMsgs.Length);
-                Debug.Log(reciever.serverMsg);
                 return;
             } 
             for(int i = 0; i < population.Length; i++){
                 population[i].GetStates(serverMsgs[i]);
             }
             mainStateManager.GetStates(serverMsgs[selectedCityIndex]);
-            // reciever.messagePresent = false;
+            // Send reset message if all cities are full
+            if(AllCitiesFull()){
+                Reset();
+            }
         }
         else{
             Debug.Log("Server message not recieved");
         }
+    }
+
+    void Reset(){
+        Debug.Log("Resetting.. Episodes Done: " + episode);
+        for(int i = 0 ; i < population.Length; i++){
+            population[i].Reset();
+        }
+        episode = 0;
+        generation++;
+        generationText.text = generation.ToString();
+        reciever.reset = true;
+    }
+
+    bool AllCitiesFull(){
+        for(int i = 0; i < population.Length; i++){
+            if (!population[i].cityBuildingPlacer.cityFull){
+                return false;
+            }
+        }
+
+        return true;
     }
 }

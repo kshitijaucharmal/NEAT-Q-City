@@ -17,6 +17,8 @@ public class BuildingPlacer : MonoBehaviour
     private Transform city;
     private bool[,] grid;
 
+    private List<GameObject> buildings = new List<GameObject>();
+
     public IEnumerator PlaceRandom(int n){
         for(int i = 0; i < n; i++){
             int b = Random.Range(0, allBuildings.Length);
@@ -44,6 +46,16 @@ public class BuildingPlacer : MonoBehaviour
         InitializeGrid();
         foreach(Building b in allBuildings){
             b.SetHeight();
+        }
+        PlaceRoads();
+    }
+
+    public void Reset(){
+        // Reset grid
+        InitializeGrid();
+        cityFull = false;
+        foreach(GameObject b in buildings){
+            Destroy(b);
         }
         PlaceRoads();
     }
@@ -92,6 +104,7 @@ public class BuildingPlacer : MonoBehaviour
         build.localScale = dimensions;
         build.parent = parent;
         build.GetComponent<Renderer>().material = building.material;
+        buildings.Add(build.gameObject);
         return parent;
     }
 

@@ -26,8 +26,12 @@ public class CityManager : MonoBehaviour
     void Start(){
         cityBuildingPlacer.Setup();
         // StartCoroutine(cityBuildingPlacer.PlaceRandom(100));
-        foreach(TMP_Text t in buildingCountsUI){
-            t.text = "0";
+    }
+
+    public void Reset(){
+        cityBuildingPlacer.Reset();
+        for(int i = 0; i < buildingCountsUI.Length; i++){
+            buildingCountsUI[i].text = "0";
         }
     }
 
@@ -57,8 +61,6 @@ public class CityManager : MonoBehaviour
         buildingCountsUI[actionIndex].text = val.ToString();
     }
 
-    void Update(){
-        
-    }
+    void Update(){ }
 
 }

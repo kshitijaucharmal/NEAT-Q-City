@@ -9,6 +9,8 @@ public class DataReciever : MonoBehaviour {
   private TcpClient socketConn;
   private Thread clientRcvThread;
 
+  [Range(0.01f, 2f)]public float timeBtwnRecieving = 0.5f;
+
   [SerializeField] private StateManager stateManager;
 
   [SerializeField] private string host = "localhost";
@@ -19,6 +21,7 @@ public class DataReciever : MonoBehaviour {
   public bool messagePresent = false;
 
   private bool exit = false;
+  public bool reset = false;
 
   public void SinglePortConnect(){
     try{
@@ -85,15 +88,22 @@ public class DataReciever : MonoBehaviour {
               // messagePresent[port - ports.x] = true;
             }
 
-            // Send 'next' after receiving a message
-            byte[] nextMessage = Encoding.ASCII.GetBytes("next");
-            stream.Write(nextMessage, 0, nextMessage.Length);
+            if(reset){
+              Debug.Log("Reset message sent");
+              byte[] resetMsg = Encoding.ASCII.GetBytes("reset");
+              stream.Write(resetMsg, 0, resetMsg.Length);
+              reset = false;
+            }
 
             // Send 'exit' to kill
             if(exit){
               byte[] exitMessage = Encoding.ASCII.GetBytes("exit");
               stream.Write(exitMessage, 0, exitMessage.Length);
             }
+
+            // Send 'next' after receiving a message
+            byte[] nextMessage = Encoding.ASCII.GetBytes("next");
+            stream.Write(nextMessage, 0, nextMessage.Length);
           }
         }
       }
