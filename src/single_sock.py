@@ -1,5 +1,4 @@
 import socket
-import random
 from stats_manager.manager import StatManager
 import time
 
@@ -8,19 +7,6 @@ PORT = 65432
 
 msg = ""
 n_states = 10
-
-ACTIONS = [
-    "BuildHospital",
-    "BuildPark",
-    "BuildFactory",
-    "BuildTransport",
-    "BuildEducationInstitutes",
-    "BuildResidentialBuilding",
-    "BuildOffices",
-    "DevelopScienceCenter",
-    "BuildFarm",
-    "DevelopRenewableEnergy",
-]
 
 population = []
 pop_size = 16
@@ -40,7 +26,8 @@ def create_message():
     for p in population:
         (action, action_number) = p.sample()
         p.take_action(action)
-        full_message += combine_message(p.all_stats.values(), action_number) + ":"
+        s = combine_message(p.all_stats.values(), action_number) + ";"
+        full_message += s
     return full_message[:-1]
 
 
@@ -48,6 +35,9 @@ def combine_message(stats, action_number):
     msg = ",".join(str(round(v, 4)) for v in stats)
     msg += "," + str(action_number)
     return msg
+
+
+ctr = 0
 
 
 def main():

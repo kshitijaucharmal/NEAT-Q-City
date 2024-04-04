@@ -1,77 +1,78 @@
 # All Stats (10)
 [stats]
-Population = 0       # Ideal: 0.5
+Population = 0       # Ideal: 0.0005
 Pollution = 0        # Ideal: 0
 Recreation = 0       # Ideal: 1
+Employment = 0       # Ideal: 1
 Literacy = 0         # Ideal: 1
-PublicSafety = 0     # Ideal: 1
+Crime = 0            # Ideal: 0
 HouseholdIncome = 0  # Ideal: 1
 GreenSpace = 0       # Ideal: 1
 Healthcare = 0       # Ideal: 1
-Employment = 0       # Ideal: 1
 InternetCoverage = 0 # Ideal: 1
 
 # Actions (10)
 [actions.BuildHospital]
-Healthcare = 0.8
-Employment = 0.2
-Pollution = 0.2
-Literacy = 0.1
-Recreation = 0.1
+Healthcare = 0.0008
+Employment = 0.0002
+Pollution = 0.0002
+Literacy = 0.0001
+Recreation = 0.0001
 
 [actions.BuildPark]
-Recreation = 0.8
-Pollution = -0.5
-GreenSpace = 0.6
-Employment = 0.1
-HouseholdIncome = 0.1
+Recreation = 0.0008
+Pollution = -0.0005
+GreenSpace = 0.0006
+Employment = 0.0001
+HouseholdIncome = 0.0001
 
 [actions.BuildFactory]
-Pollution = 0.8
-Employment = 0.7
-HouseholdIncome = 0.5
-GreenSpace = -0.4
-PublicSafety = -0.3
+Pollution = 0.0008
+Employment = 0.0007
+HouseholdIncome = 0.0005
+GreenSpace = -0.0004
+Crime = -0.0003
 
 [actions.BuildTransport]
-Pollution = 0.5
-Employment = 0.6
-Recreation = -0.3
-PublicSafety = -0.1
+Pollution = 0.0005
+Employment = 0.0006
+Recreation = -0.0003
+Crime = -0.0001
 
 [actions.BuildEducationInstitutes]
-Literacy = 0.7
-Employment = 0.3
-Population = 0.3
-Recreation = 0.1
+Literacy = 0.0007
+Employment = 0.0003
+Population = 0.0003
+Recreation = 0.0001
 
 [actions.BuildResidentialBuilding]
-Population = 0.6
-Employment = 0.4
-HouseholdIncome = 0.3
-GreenSpace = -0.2
-PublicSafety = 0.2
+Population = 0.0006
+Employment = 0.0004
+HouseholdIncome = 0.0003
+GreenSpace = -0.0002
+Crime = 0.0002
 
 [actions.BuildOffices]
-Employment = 0.8
-HouseholdIncome = 0.7
-Literacy = 0.1
-Pollution = 0.1
+Employment = 0.0008
+HouseholdIncome = 0.0007
+Literacy = 0.0001
+Pollution = 0.0001
+Crime = 0.0002
 
-[actions.DevelopScienceCenter]
-Literacy = 0.8
-Employment = 0.5
-Pollution = 0.2
-Recreation = 0.2
+[actions.BuildTower]
+InternetCoverage = 0.001
+Employment = 0.0005
+Pollution = 0.0002
+Population = 0.0001
 
 [actions.BuildFarm]
-GreenSpace = 0.8
-Employment = -0.4
-HouseholdIncome = 0.2
-Pollution = -0.4
+GreenSpace = 0.0008
+Employment = -0.0004
+HouseholdIncome = 0.0002
+Pollution = -0.0004
 
 [actions.DevelopRenewableEnergy]
-Pollution = -0.6
-Employment = 0.5
-HouseholdIncome = 0.2
-GreenSpace = 0.2
+Pollution = -0.0006
+Employment = 0.0005
+HouseholdIncome = 0.0002
+GreenSpace = 0.0002
