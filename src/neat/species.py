@@ -1,3 +1,4 @@
+# Species refers to group of genomes (single neural network)
 
 class Species:
     def __init__(self, mem):

@@ -2,11 +2,14 @@ from neat.node import Node
 from neat.gene import Gene
 
 import random
+import numpy as np
+import math
 
-
+# genome represents an individual neural network architecture
 class Genome:
+    
     def __init__(self, gh):
-        # Ref to history
+        # Ref to gene history(gh)
         self.gh = gh
         # Copying inputs/outputs
         self.n_inputs = gh.n_inputs
@@ -17,6 +20,9 @@ class Genome:
         # Nodes and genes
         self.nodes = []
         self.genes = []
+
+        #batch size 
+        self.batch_size = 32 # update the same value in a agent file (line no 17)
 
         # Random fitness for now
         self.fitness = random.uniform(-2, 2)
@@ -123,63 +129,152 @@ class Genome:
         for i in range(len(self.genes)):
             self.genes[i].out_node.in_genes.append(self.genes[i])
         pass
+    
+    def seperate(self):
+        # Seperating the nodes layer-wise
+        self.Input_Layer=[]
+        self.Output_Layer=[]
+        self.HL_1=[]
+        self.HL_2=[]
 
-    # Backprop
-    def backpropagate(self, inputs, target):
-        output = self.get_outputs(inputs)
-        print("Output:", output)
-        print("Target:", target)
-        # Calc errors
-        errors = []
-        for i in range(len(output)):
-            # Normal error
-            errors.append((target[i] - output[i]))
-
-        non_lin = lambda x: x * (1 - x)
-
-        # Output layer
-        out_layer_corrections = []
-        for i, err in enumerate(errors):
-            correction = non_lin(output[i]) * err * 0.03  # lr
-            out_layer_corrections.append(correction)
-            pass
-
-        print("Error: ", errors)
-        print("Corrections: ", out_layer_corrections)
+        for i in range(len(self.nodes)):
+            if(self.nodes[i].layer == 0):
+                self.Input_Layer.append(self.nodes[i])
+            elif self.nodes[i].layer == 1:
+                self.Output_Layer.append(self.nodes[i])
+            elif self.nodes[i].layer == 2:
+                self.HL_1.append(self.nodes[i])
+            elif self.nodes[i].layer == 3:
+                self.HL_2.append(self.nodes[i])
+            else:
+                print("Something is wrong while seperating nodes")
         pass
 
-    # Get Outputs
-    def get_outputs(self, inputs):
-        if len(inputs) != self.n_inputs:
-            print("Wrong number of inputs")
-            return [-1]
+    # Forward Propogation
+    def feed_forward(self, inputs):
+        #print(f"inputs inside feedforward:",inputs)
+        final_outputs = np.zeros((self.batch_size, self.n_outputs))
+        for i in range(len(inputs)):
+            #print(f"feed inputs: ",inputs[i])
+            #print(f"feed n_inputs: ",self.n_inputs)
+            if len(inputs[i]) != self.n_inputs:
+                print("Wrong number of inputs")
+                return [-1]
 
-        # Input layers outputs are the specified inputs
-        for i in range(self.n_inputs):
-            self.nodes[i].output = inputs[i]
+            # Input layers outputs are the specified inputs
+            for j in range(self.n_inputs):
+                self.nodes[j].sum=inputs[i][j]
+                self.nodes[j].output = inputs[i][j]
 
-        # Connect genes (Clean references)
-        self.connect_genes()
+            # Connect genes (Clean references)
+            self.connect_genes()
 
-        # calculate layer wise
-        for layer in range(2, self.gh.highest_hidden + 1):
-            nodes_in_layer = []
-            for n in range(len(self.nodes)):
-                if self.nodes[n].layer == layer:
-                    nodes_in_layer.append(self.nodes[n])
+            # calculate layer wise
+            for layer in range(2, self.gh.highest_hidden + 1):
+                nodes_in_layer = []
+                for n in range(len(self.nodes)):
+                    if self.nodes[n].layer == layer:
+                        nodes_in_layer.append(self.nodes[n])
 
-            for n in range(len(nodes_in_layer)):
-                nodes_in_layer[n].calculate()
+                for n in range(len(nodes_in_layer)):
+                    nodes_in_layer[n].calculate()
 
-        # calculate final outputs at last
-        final_outputs = []
-        for n in range(self.n_inputs, self.n_inputs + self.n_outputs):
-            self.nodes[n].calculate()
-            final_outputs.append(self.nodes[n].output)
-
+            # calculate final outputs at last
+            #final_outputs = np.zeros((self.batch_size, self.n_outputs))
+            j=0
+            for n in range(self.n_inputs, self.n_inputs + self.n_outputs):
+                self.nodes[n].calculate()
+                #print(f"node",self.nodes[n].output)
+                final_outputs[i][j]=(self.nodes[n].output)
+                j+=1
+        #print(f" feed final_outputs:",final_outputs)
+            
         # return outputs
         return final_outputs
 
+    # ---------------------------------Backpropogation-------------------------------------------
+    def mean_squared_error(self,target, pred):
+        # print(f"Target:",target)
+        # print(f"Pred:",pred)
+        if len(target)!=len(pred):
+            print("Unequal length of inputs and outputs")
+
+        self.squared_difference = [(target[i]-pred[i])**2 for i in range(len(pred))]
+        # print(f"squared:",self.squared_difference)
+        return np.mean(self.squared_difference)
+
+    def sigmoid(self,x):
+        return 1 / (1 + math.exp(-x))
+
+    def sigmoid_derivative(self,x):
+        return self.sigmoid(x) * (1 - self.sigmoid(x))
+    
+
+    def backpropogate(self,inputs,targets):
+        #print(f"back inputs:",inputs)
+        #print(f"back targets:",targets)
+        #learning_rate
+        self.lr=0.001
+        #calling seprate function to get the layerwise list
+        self.seperate()
+        
+            # generating the outputs
+        self.predicted_output=self.feed_forward(inputs)
+        #print("back predicted_output:",self.predicted_output)
+
+
+
+        for k in range(len(inputs)): # loop for batched inputs
+
+            for i in range(len(self.nodes)):
+                self.nodes[i].value=0
+            # Backpropagation
+            # Compute gradients of loss with respect to output layer
+            self.d_loss_output = [(targets[k][i] - self.predicted_output[k][i]) for i in range(len(targets[0]))]
+            self.d_output_input3 = [self.d_loss_output[i] * self.sigmoid_derivative(self.Output_Layer[i].sum) for i in range(len(targets[0]))]
+            for i in range(len(self.Output_Layer)):
+                for j in range(len(self.Output_Layer[i].in_genes)):
+                    self.temp_gene=self.Output_Layer[i].in_genes[j]
+                    if(self.temp_gene.enabled==True):
+                        self.temp_gene.error = self.d_output_input3[i] * self.temp_gene.in_node.output
+                        # updating weights
+                        self.temp_gene.weight+=(self.lr*self.temp_gene.error)
+                        #print(f"updating weights..")
+                        # storing the required value in node
+                        self.temp_gene.in_node.value += (self.d_output_input3[i] * self.temp_gene.weight)
+                        #print(f"updating value in nodes..")
+
+            # Compute gradients of loss with respect to second hidden layer
+            self.d_output_input2 = [self.HL_2[i].value * self.sigmoid_derivative(self.HL_2[i].sum) for i in range(len(self.HL_2))]
+            for i in range(len(self.HL_2)):
+                for j in range(len(self.HL_2[i].in_genes)):
+                    self.temp_gene=self.HL_2[i].in_genes[j]
+                    if(self.temp_gene.enabled==True):
+                        self.temp_gene.error = self.d_output_input2[i] * self.temp_gene.in_node.output
+                        # updating weights
+                        self.temp_gene.weight+=(self.lr*self.temp_gene.error)
+                        #print(f"updating weights..")
+                        # storing the required value in node
+                        self.temp_gene.in_node.value += (self.d_output_input2[i] * self.temp_gene.weight)
+                        #print(f"updating value in nodes..")
+
+            # Compute gradients of loss with respect to first hidden layer
+            self.d_output_input1 = [self.HL_1[i].value * self.sigmoid_derivative(self.HL_1[i].sum) for i in range(len(self.HL_1))]
+            for i in range(len(self.HL_1)):
+                for j in range(len(self.HL_1[i].in_genes)):
+                    self.temp_gene=self.HL_1[i].in_genes[j]
+                    if(self.temp_gene.enabled==True):
+                        self.temp_gene.error = self.d_output_input1[i] * self.temp_gene.in_node.output
+                        # updating weights
+                        self.temp_gene.weight+=(self.lr*self.temp_gene.error)
+                        #print(f"updating weights..")
+                        # storing the required value in node
+                        self.temp_gene.in_node.value += (self.d_output_input1[i] * self.temp_gene.weight)
+                        #print(f"updating value in nodes..")
+
+        #print(f"mse:",self.mean_squared_error(targets,self.feed_forward(inputs)))
+        pass
+    
     # get weight of gene of inno
     def get_weight(self, inno):
         for g in self.genes:

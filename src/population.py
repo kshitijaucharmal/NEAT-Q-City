@@ -27,15 +27,13 @@ class Population:
     def update(self, conn):
         msg = ""
         for p in self.population:
-            # Update
-            # Taking action to update the stats
-            # TODO: replace sample action by actual action
-            (action, action_number) = p.sample()
-            p.take_action(action)
+            # (action, action_number) = p.sample()
+            # p.take_action_name(action)
+            action=p.take_action()
 
             # Add to message
-            s = p.city_details(action_number)
-            msg += s
+            s = p.city_details(action)
+            msg += s + ":"
         # Remove the last :
         msg = msg[-1]
 

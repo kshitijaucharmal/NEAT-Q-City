@@ -8,7 +8,7 @@ class StatManager:
         self.all_stats = {}
         self.all_mappings = {}
 
-        with open(mappings_file) as f:
+        with open("src/stats_manager/data.toml") as f:
             # List of mappings
             self.full_data = toml.load(f)
             self.all_mappings = self.full_data["actions"]
@@ -26,12 +26,18 @@ class StatManager:
         pprint(self.all_stats)
         print()
 
+    # just for testing
     def take_random_action(self):
         action = random.choice(list(self.all_mappings.keys()))
         self.take_action(action)
         pass
 
-    def take_action(self, action_name):
+    def take_action(self, action_number):
+        actions = [a for a in self.all_mappings.keys()]
+        self.take_action_by_name(actions[action_number])
+
+
+    def take_action_by_name(self, action_name):
         for stat in self.all_mappings[action_name].keys():
             self.all_stats[stat] += self.all_mappings[action_name][stat]
             self.all_stats[stat] = self.clamp(self.all_stats[stat], -1.0000, 1.0000)
@@ -49,3 +55,8 @@ class StatManager:
             return max
         else:
             return stat
+
+# main function
+# stats_man = StatManager();
+# print(f"all_mapping:",stats_man.all_mappings)
+# print(f"all_stats:",stats_man.all_stats)

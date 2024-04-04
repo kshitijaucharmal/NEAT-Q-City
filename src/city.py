@@ -1,9 +1,16 @@
 from stats_manager.manager import StatManager
+from Q_City.agent import Agent
 
 
 class City:
     def __init__(self) -> None:
+        # assigning a manager to the city 
         self.manager = StatManager()
+        # assigning an agent to the city
+        self.agent=Agent(num_states=len(self.manager.all_stats),num_actions=len(self.manager.all_mappings))
+        # The brain given by neat
+        self.brain = Agent.init_model()
+
         self.stats = self.manager.all_stats
         self.weights = {
             "Population": 0.1,
@@ -18,9 +25,6 @@ class City:
             "InternetCoverage": 0.15,
         }
         self.fitness = 0
-
-        # The brain given by neat
-        self.brain = None
         pass
 
     def city_details(self, action_taken):
@@ -28,13 +32,15 @@ class City:
         msg += "," + str(action_taken)
         return msg
 
-    def take_action(self, action=None):
-        if not action:
-            action, _ = self.manager.sample()
-        print(action)
+    def take_action(self):
+        action=Agent.select_action(self.stats_list())
+        # if not action:
+        #     action, _ = self.manager.sample()
+        print(f"Action:",action)
+        #updating stats_manager
         self.manager.take_action(action)
         self.stats = self.manager.all_stats
-        pass
+        return action
 
     def stats_list(self):
         return [round(s, 4) for s in list(self.stats.values())]
@@ -52,3 +58,8 @@ class City:
     def calculate_fitness(self):
         for stat, score in self.stats.items():
             self.fitness += self.weights[stat] * score
+
+
+# main function()
+            X=City()
+            print(X.stats)

@@ -1,15 +1,13 @@
 import numpy as np
-from Q_City.environment import env
-from Q_City.agent import Agent
-from neat.geneh import GeneHistory
+from environment import env
+from agent import Agent
 
 #should be changed
-input_values = [120, 150, 110, 60, 12, 403, 92, 14, 318, 143]
+input_values = [12, 4, 10, 6, 1, 40, 9, 4, 8, 3]
 
 observations_parm = ['Population density', 'Pollution', 'Recreation', 'Literacy rate',
                      'Crime rate', 'Household income', 'Green space', 'Healthcare',
                      'Employment rate', 'Internet coverage']
-
 state = np.array(input_values)
 num_states = len(observations_parm)
 
@@ -18,16 +16,16 @@ actions_parm = ['Building hospital', 'Building park', 'Building factory', 'Expan
                 'Building Police station', 'Building Communication tower', 'Building Farms']
 num_actions = len(actions_parm)
 
-rewards_Arr = [[0.5, -0.4, 0.5, 0.5, -0.4, 0.5, 0.4, 0.5, 0.5, 0.4],
-               [0.4, -0.4, 0.5, 0.5, 0.4, 0.4, 0.5, 0.4, 0.4, 0.4],
-               [-0.5, 0.5, -0.5, -0.4, 0.5, 0.5, -0.4, -0.5, 0.5, 0.5],
-               [0.3, -0.3, 0.3, 0.3, -0.3, 0.3, 0.3, 0.3, 0.3, 0.3],
-               [0.4, -0.4, 0.5, 0.5, -0.4, 0.5, 0.4, 0.5, 0.5, 0.5],
-               [0.4, -0.3, 0.4, 0.4, -0.3, 0.4, 0.4, 0.4, 0.4, 0.4],
-               [0.5, -0.4, 0.5, 0.5, -0.4, 0.5, 0.4, 0.5, 0.5, 0.5],
-               [0.5, 0.4, 0.5, 0.5, 0.4, 0.5, 0.4, 0.5, 0.5, 0.5],
-               [0.4, 0.4, 0.4, 0.5, 0.4, 0.4, 0.4, 0.5, 0.5, 0.4],
-               [0.4, -0.3, 0.4, 0.4, -0.3, 0.4, 0.4, 0.4, 0.4, 0.4]]
+rewards_Arr = [[5, -4, 5, 5, -4, 5, 4, 5, 5, 4],
+               [4, -4, 5, 5, 4, 4, 5, 4, 4, 4],
+               [-5, 5, -5, -4, 5, 5, -4, -5, 5, 5],
+               [3, -3, 3, 3, -3, 3, 3, 3, 3, 3],
+               [4, -4, 5, 5, -4, 5, 4, 5, 5, 5],
+               [4, -3, 4, 4, -3, 4, 4, 4, 4, 4],
+               [5, -4, 5, 5, -4, 5, 4, 5, 5, 5],
+               [5, 4, 5, 5, 4, 5, 4, 5, 5, 5],
+               [4, 4, 4, 5, 4, 4, 4, 5, 5, 4],
+               [4, -3, 4, 4, -3, 4, 4, 4, 4, 4]]
 
 
 def train(agent, num_episodes, env):
@@ -35,7 +33,6 @@ def train(agent, num_episodes, env):
         total_reward = 0
         done = False
         state = env.current_state
-        #agent.update_target_model()
         print("Epoch:", epoch)
         print(f"-------------------------------------------------------")
         for i in range(10):
@@ -45,12 +42,13 @@ def train(agent, num_episodes, env):
             agent.update_q_values()
             state = next_state
             total_reward += reward
-            #print("Action:", action, "Reward:", reward, "Total Reward:", total_reward)
+            print("Action:", action, "Reward:", reward, "Total Reward:", total_reward)
             if done:
                 break
 
-gh=GeneHistory(num_states,num_actions)
-agent = Agent(num_states=num_states, num_actions=num_actions,gene_history=gh)
+
+
+agent = Agent(num_states=num_states, num_actions=num_actions)
 environment = env(state)
 train(agent, num_episodes=agent.num_episodes, env=environment)
 
