@@ -38,13 +38,18 @@ public class PopulationManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update() { 
-        if (reciever.serverMsg != null){
-            string[] serverMsgs = reciever.serverMsg.Split(":");
-            if(serverMsgs.Length != population.Length) return;
+        if (reciever.messagePresent && reciever.serverMsg != null){
+            string[] serverMsgs = reciever.serverMsg.Split(";");
+            if(serverMsgs.Length != population.Length){
+                Debug.Log("Not enough inputs: " + serverMsgs.Length);
+                Debug.Log(reciever.serverMsg);
+                return;
+            } 
             for(int i = 0; i < population.Length; i++){
                 population[i].GetStates(serverMsgs[i]);
             }
             mainStateManager.GetStates(serverMsgs[selectedCityIndex]);
+            // reciever.messagePresent = false;
         }
         else{
             Debug.Log("Server message not recieved");

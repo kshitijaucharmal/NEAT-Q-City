@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 886a294e6f2d6ccbc910385dcccf6c7d, type: 3}
-  m_Name: Science
+  m_Name: Tower
   m_EditorClassIdentifier: 
-  name: Science
-  size: {x: 2, y: 3}
-  buildingHeight: 2
+  name: Tower
+  size: {x: 1, y: 1}
+  buildingHeight: 8
   height: 2
   material: {fileID: 2100000, guid: 638a7994dbd8959a994522136fea26ec, type: 2}

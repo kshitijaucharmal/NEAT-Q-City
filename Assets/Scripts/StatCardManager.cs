@@ -29,7 +29,7 @@ public class StatCardManager : MonoBehaviour{
             slider.maxValue = 1;
             slider.value = card.defaultvalue;
         }
-        else{
+        if(valueText != null){
             int val = (int)(card.defaultvalue * 100);
             valueText.text = val.ToString();
         }

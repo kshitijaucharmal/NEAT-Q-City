@@ -223,6 +223,30 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 041b403b8c14b6a408d96f89cd464bdb, type: 3}
+    - target: {fileID: 6276049511100028524, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6276049511100028524, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6387416257716491952, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
+      propertyPath: m_Color.b
+      value: 0.1745283
+      objectReference: {fileID: 0}
+    - target: {fileID: 6387416257716491952, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
+      propertyPath: m_Color.g
+      value: 0.87412757
+      objectReference: {fileID: 0}
+    - target: {fileID: 6387416257716491952, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6387416257716491952, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
+      propertyPath: m_FillAmount
+      value: 0.371
+      objectReference: {fileID: 0}
     - target: {fileID: 7840100393272630246, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
       propertyPath: m_Texture
       value: 
@@ -234,6 +258,10 @@ PrefabInstance:
     - target: {fileID: 8714276270675106183, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
       propertyPath: state
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875512755202606699, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -293,7 +321,6 @@ MonoBehaviour:
   nPopulation: {x: 4, y: 4}
   gridSize: {x: 20, y: 20}
   offset: 10
-  timeBtwnTakingAction: 0
   cityPrefab: {fileID: 2736971647700958985, guid: a6449d7060484289f9379314dab93b7a, type: 3}
   reciever: {fileID: 182425034}
   population: []
@@ -312,12 +339,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateManager: {fileID: 573600429}
-  timeBtwnChange: 0
   host: localhost
-  ports: {x: 60000, y: 60016}
   singlePort: 65432
-  serverMsgs: []
-  messagePresent: 
   serverMsg: 
 --- !u!224 &262366625 stripped
 RectTransform:
@@ -531,6 +554,30 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 05fd69b3ac8646b4fa985e6a3a0d5434, type: 3}
+    - target: {fileID: 6276049511100028524, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6276049511100028524, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6387416257716491952, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
+      propertyPath: m_Color.b
+      value: 0.5568628
+      objectReference: {fileID: 0}
+    - target: {fileID: 6387416257716491952, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
+      propertyPath: m_Color.g
+      value: 0.47843137
+      objectReference: {fileID: 0}
+    - target: {fileID: 6387416257716491952, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
+      propertyPath: m_Color.r
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6387416257716491952, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
+      propertyPath: m_FillAmount
+      value: 0.371
+      objectReference: {fileID: 0}
     - target: {fileID: 7840100393272630246, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
       propertyPath: m_Texture
       value: 
@@ -542,6 +589,10 @@ PrefabInstance:
     - target: {fileID: 8714276270675106183, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
       propertyPath: state
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875512755202606699, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1623,6 +1674,30 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 816c11d40d1ca63409824c7e163b952a, type: 3}
+    - target: {fileID: 6276049511100028524, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6276049511100028524, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6387416257716491952, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6387416257716491952, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
+      propertyPath: m_Color.g
+      value: 0.68432516
+      objectReference: {fileID: 0}
+    - target: {fileID: 6387416257716491952, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
+      propertyPath: m_Color.r
+      value: 0.2216981
+      objectReference: {fileID: 0}
+    - target: {fileID: 6387416257716491952, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
+      propertyPath: m_FillAmount
+      value: 0.371
+      objectReference: {fileID: 0}
     - target: {fileID: 7840100393272630246, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
       propertyPath: m_Texture
       value: 
@@ -1634,6 +1709,10 @@ PrefabInstance:
     - target: {fileID: 8714276270675106183, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
       propertyPath: state
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875512755202606699, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1863,6 +1942,30 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 33f64c3115261244881b3032648bfc43, type: 3}
+    - target: {fileID: 6276049511100028524, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6276049511100028524, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6387416257716491952, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6387416257716491952, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
+      propertyPath: m_Color.g
+      value: 0.058691293
+      objectReference: {fileID: 0}
+    - target: {fileID: 6387416257716491952, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6387416257716491952, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
+      propertyPath: m_FillAmount
+      value: 0.371
+      objectReference: {fileID: 0}
     - target: {fileID: 7840100393272630246, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
       propertyPath: m_Texture
       value: 
@@ -1878,6 +1981,10 @@ PrefabInstance:
     - target: {fileID: 8714276270675106183, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
       propertyPath: card.defaultvalue
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875512755202606699, guid: 85ae52e8895e88453bbbebd56a6055ec, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

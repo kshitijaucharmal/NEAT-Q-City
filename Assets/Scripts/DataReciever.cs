@@ -2,7 +2,6 @@ using System;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class DataReciever : MonoBehaviour {
@@ -17,19 +16,20 @@ public class DataReciever : MonoBehaviour {
   [SerializeField] private int singlePort = 654321;
 
   public string serverMsg;
+  public bool messagePresent = false;
 
   private bool exit = false;
 
   public void SinglePortConnect(){
     try{
-            clientRcvThread = new(() => Listen(singlePort, true))
-            {
-                IsBackground = true
-            };
-            clientRcvThread.Start();
+      clientRcvThread = new(() => Listen(singlePort, true)) {
+          IsBackground = true
+      };
+      clientRcvThread.Start();
     }
     catch (Exception e){
       Debug.Log("Cannot Connect: " + e);
+      messagePresent = false;
     }
   }
 
@@ -78,6 +78,7 @@ public class DataReciever : MonoBehaviour {
             Array.Copy(bytes, 0, incomingData, 0, length);
             if(single){
               serverMsg = Encoding.ASCII.GetString(incomingData);
+              messagePresent = true;
             }
             else{
               // serverMsgs[port - ports.x] = Encoding.ASCII.GetString(incomingData);
@@ -99,6 +100,7 @@ public class DataReciever : MonoBehaviour {
     } catch (SocketException e) {
       Debug.Log("Socket Exception " + e);
       // messagePresent[port - ports.x] = false;
+      messagePresent = false;
     }
   }
 
