@@ -7,7 +7,7 @@ memory_size = 5000
 batch_size = 32
 
 class Agent:
-    def __init__(self, num_states, num_actions):
+    def __init__(self, num_states, num_actions, gene_history):
         self.replay_memory = deque(maxlen=memory_size)
         self.q_values = np.ones(shape=num_actions)
         self.gamma = 0.95
@@ -18,17 +18,21 @@ class Agent:
         self.num_episodes = 1000
         self.num_actions = num_actions
         self.num_states = num_states
-        self.gh=GeneHistory(self.num_states,self.num_actions)
-        self.model()
+        self.gh=gene_history
+        self.init_model()
         
     #create model
-    def model(self):
+    def init_model(self):
         self.g = Genome(self.gh)
         for i in range(50):
             self.g.mutate()
         pass
         self.g_clone=self.g.clone()
     
+    def reset_model(self, new_model):
+        self.g = new_model
+        self.g_clone=self.g.clone()
+
     def predict(self,inputs):
         return self.g.feed_forward(inputs)
     

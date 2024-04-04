@@ -1,6 +1,7 @@
 import numpy as np
 from Q_City1.environment import env
 from Q_City1.agent import Agent
+from neat.geneh import GeneHistory
 
 #should be changed
 input_values = [120, 150, 110, 60, 12, 403, 92, 14, 318, 143]
@@ -48,9 +49,8 @@ def train(agent, num_episodes, env):
             if done:
                 break
 
-
-
-agent = Agent(num_states=num_states, num_actions=num_actions)
+gh=GeneHistory(num_states,num_actions)
+agent = Agent(num_states=num_states, num_actions=num_actions,gene_history=gh)
 environment = env(state)
 train(agent, num_episodes=agent.num_episodes, env=environment)
 

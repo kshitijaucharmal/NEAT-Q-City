@@ -194,13 +194,13 @@ class Genome:
 
     # ---------------------------------Backpropogation-------------------------------------------
     def mean_squared_error(self,target, pred):
-        #print(f"Target:",target)
-        #print(f"Pred:",pred)
+        # print(f"Target:",target)
+        # print(f"Pred:",pred)
         if len(target)!=len(pred):
             print("Unequal length of inputs and outputs")
 
         self.squared_difference = [(target[i]-pred[i])**2 for i in range(len(pred))]
-        #print(f"squared:",self.squared_difference)
+        # print(f"squared:",self.squared_difference)
         return np.mean(self.squared_difference)
 
     def sigmoid(self,x):
