@@ -22,7 +22,7 @@ class Genome:
         self.genes = []
 
         #batch size 
-        self.batch_size=16
+        self.batch_size = 32 # update the same value in a agent file (line no 17)
 
         # Random fitness for now
         self.fitness = random.uniform(-2, 2)
@@ -150,14 +150,14 @@ class Genome:
                 print("Something is wrong while seperating nodes")
         pass
 
-    # Forward Propogationfor i in range(len(inputs)):
+    # Forward Propogation
     def feed_forward(self, inputs):
         #print(f"inputs inside feedforward:",inputs)
         final_outputs = np.zeros((self.batch_size, self.n_outputs))
         for i in range(len(inputs)):
             #print(f"feed inputs: ",inputs[i])
             #print(f"feed n_inputs: ",self.n_inputs)
-            if len(inputs[0]) != self.n_inputs:
+            if len(inputs[i]) != self.n_inputs:
                 print("Wrong number of inputs")
                 return [-1]
 
@@ -184,21 +184,24 @@ class Genome:
             j=0
             for n in range(self.n_inputs, self.n_inputs + self.n_outputs):
                 self.nodes[n].calculate()
+                #print(f"node",self.nodes[n].output)
                 final_outputs[i][j]=(self.nodes[n].output)
                 j+=1
-            #print(f" feed final_outputs:",final_outputs)
+        #print(f" feed final_outputs:",final_outputs)
             
         # return outputs
         return final_outputs
 
     # ---------------------------------Backpropogation-------------------------------------------
     def mean_squared_error(self,target, pred):
+        #print(f"Target:",target)
+        #print(f"Pred:",pred)
         if len(target)!=len(pred):
             print("Unequal length of inputs and outputs")
 
-        self.squared_diffrence = [(target[i]-pred[i])**2 for i in range(len(pred))]
-
-        return np.mean(self.squared_diffrence)
+        self.squared_difference = [(target[i]-pred[i])**2 for i in range(len(pred))]
+        #print(f"squared:",self.squared_difference)
+        return np.mean(self.squared_difference)
 
     def sigmoid(self,x):
         return 1 / (1 + math.exp(-x))

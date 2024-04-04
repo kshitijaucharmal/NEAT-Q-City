@@ -46,7 +46,7 @@ class Node:
                 s += g.in_node.output * g.weight
         self.sum = s
         # applying activation function to weighted sum to calucate its output
-        self.output = self.sigmoid(self.sum)
+        self.output = round(self.sigmoid(self.sum),4)
         pass
 
     # Only for showing

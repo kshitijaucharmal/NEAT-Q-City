@@ -4,7 +4,7 @@ from neat.geneh import GeneHistory
 import numpy as np
 
 memory_size = 5000
-batch_size = 16
+batch_size = 32
 
 class Agent:
     def __init__(self, num_states, num_actions):
@@ -35,11 +35,10 @@ class Agent:
     def predict_clone(self,inputs):
         return self.g_clone.feed_forward(inputs)
        
-    def fit(self,inputs,targets,epochs):
-        for _ in range(epochs):
-            self.g.backpropogate(inputs, targets)
+    def fit(self,inputs,targets):  
+        self.g.backpropogate(inputs, targets)
 
-        mse=self.g.mean_squared_error(targets[0],self.predict(inputs)[0])
+        mse=round(self.g.mean_squared_error(targets[0],self.predict(inputs)[0]),4)
         print("Mean squared error:", mse)
         
     def update_q_values(self):
@@ -67,7 +66,7 @@ class Agent:
 
           #print(f"states:",np.array(states))
           #print(f"updated_q_values",updated_q_values)
-          self.fit(np.array(states), updated_q_values, epochs=1)
+          self.fit(np.array(states), updated_q_values)
 
 
     def select_action(self, state):
@@ -79,6 +78,10 @@ class Agent:
 
     def store_experience(self, state, action, reward, next_state, done):
         self.replay_memory.append((state, action, reward, next_state, done))
+
+    # def update_target_model(self):
+    #     self.target_model.set_weights(self.model.get_weights())
+
 
 
     

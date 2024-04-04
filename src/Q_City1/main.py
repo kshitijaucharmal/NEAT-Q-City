@@ -34,6 +34,7 @@ def train(agent, num_episodes, env):
         done = False
         state = env.current_state
         print("Epoch:", epoch)
+        print(f"-------------------------------------------------------")
         for i in range(10):
             action = agent.select_action(state)
             next_state, reward, done = env.step(action)
