@@ -34,7 +34,16 @@ class City:
         self.env = env(self.stats_list())
 
         self.done = False
+        self.batch_size = 32
+        self.ctr = 0
         pass
+
+    def clone(self):
+        c = City(self.gh)
+        c.stats = self.stats
+        c.manager.all_stats = self.manager.all_stats
+        c.agent.reset_model(self.agent.g)
+        return c
 
     def city_details(self, action_taken):
         msg = ",".join(str(round(v, 4)) for v in self.stats)
@@ -44,8 +53,8 @@ class City:
     def take_action(self):
         action = self.agent.select_action(self.stats_list())
         # updating stats_manager
-        self.manager.take_action(action)
-        self.stats = self.manager.all_stats
+        # self.manager.take_action(action)
+        # self.stats = list(self.manager.all_stats.values())
         return action
 
     def stats_list(self):
@@ -62,7 +71,10 @@ class City:
     def train(self):
         total_reward = 0
         state = self.env.current_state
-        # agent.update_target_model()
+        self.ctr += 1
+        if self.batch_size % self.ctr == 0:
+            self.agent.update_target_model()
+
         action = self.take_action()
         next_state, reward, self.done = self.env.step(action)
         self.agent.store_experience(state, action, reward, next_state, self.done)

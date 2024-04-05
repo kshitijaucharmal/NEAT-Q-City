@@ -5,7 +5,7 @@ from city import City
 from neat.geneh import GeneHistory
 
 HOST = "localhost"
-PORT = 50000
+PORT = 65432
 
 msg = ""
 
@@ -24,6 +24,8 @@ class Population:
         self.generation = 1
         self.best_fitness = 0
         self.reset()
+
+        self.filename = "/home/kshitij/out.txt"
         pass
 
     def update(self, conn):
@@ -36,7 +38,8 @@ class Population:
 
         # Remove the last :
         msg = msg[:-1]
-        print(msg)
+        with open(self.filename, "w") as f:
+            f.write(msg)
 
         # Send it
         conn.sendall(str(msg).encode())
@@ -49,10 +52,8 @@ class Population:
 
         for i in range(self.pop_size):
             parent1 = self.population[random.randint(0, 4)]
-            parent2 = self.population[random.randint(0, 4)]
 
-            # Perform crossover
-            child = parent1.crossover(parent2)
+            child = parent1.clone()
             # Mutate it some
             child.mutate()
             # Set child to population
@@ -74,7 +75,8 @@ class Population:
             cmd = self.update(conn)
 
             if "reset" in cmd:
-                print("Updated Generation")
+                self.generation += 1
+                print("Generation:", self.generation)
                 self.reset()
                 continue
 

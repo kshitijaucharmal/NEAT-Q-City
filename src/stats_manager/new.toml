@@ -1,0 +1,133 @@
+[stats]
+Population = 0       # Ideal: 0.0005
+Pollution = 0        # Ideal: 0
+Recreation = 0       # Ideal: 1
+Employment = 0       # Ideal: 1
+Literacy = 0         # Ideal: 1
+Crime = 0            # Ideal: 0
+HouseholdIncome = 0  # Ideal: 1
+GreenSpace = 0       # Ideal: 1
+Healthcare = 0       # Ideal: 1
+InternetCoverage = 0  #ideal:1
+
+[actions.BuildHospital]
+Population =  0.14
+Pollution =   0.16
+Recreation =  -0.12
+Employment =   0.11
+Literacy =    0.14
+Crime =      0.17
+HouseholdIncome = 0.2
+GreenSpace = -0.1
+Healthcare = 0.7
+InternetCoverage = -0.1
+
+[actions.BuildPark]
+Population =  0.1
+Pollution =   -0.4
+Recreation =     0.5
+Employment =      0.1
+Literacy =      0.1
+Crime =          0.1
+HouseholdIncome = -0.3
+GreenSpace = 0.01
+Healthcare = 0.2
+InternetCoverage = -0.1
+
+[actions.BuildFactory]
+Population =      0.2
+Pollution =      0.5
+Recreation =      -0.2
+Employment =      0.5
+Literacy =      0.1
+Crime =            0.3
+HouseholdIncome = 0.3
+GreenSpace = -0.2
+Healthcare = -0.3
+InternetCoverage = -0.3
+
+[actions.BuildTransport]
+Population =      0.1
+Pollution =      0.3
+Recreation =      -0.1
+Employment =      0.1
+Literacy =      0.01
+Crime =            0.3
+HouseholdIncome = 0.2
+GreenSpace = -0.1
+Healthcare = -0.3
+InternetCoverage = 0
+
+[actions.BuildEducationInstitutes]
+Population =      0.1
+Pollution =      -0.3
+Recreation =      0.1
+Employment =      0.3
+Literacy =      0.7
+Crime =            -0.5
+HouseholdIncome = 0.12
+GreenSpace = -0.2
+Healthcare = -0.1
+InternetCoverage = -0.2
+
+[actions.BuildResidentialBuilding]
+Population =      0.6
+Pollution =      0.3
+Recreation =      0.2
+Employment =      -0.5
+Literacy =      -0.1
+Crime =          0.1
+HouseholdIncome = 0.1
+GreenSpace = -0.4
+Healthcare = -0.2
+InternetCoverage = 0.3
+
+[actions.BuildOffices]
+Population =      0.4
+Pollution =      0.1
+Recreation =      -0.2
+Employment =      0.6
+Literacy =      0.1
+Crime =            0.2
+HouseholdIncome = 0.5
+GreenSpace = -0.4
+Healthcare = -0.2
+InternetCoverage = -0.2
+
+[actions.BuildPolicestation]
+Population =      0.08
+Pollution =      0
+Recreation =      -0.06
+Employment =      0.1
+Literacy =      0.1
+Crime =         -0.7
+HouseholdIncome = 0.1
+GreenSpace = -0.13
+Healthcare = -0.1
+InternetCoverage = -0.08
+
+[actions.BuildTower]
+Population =      0.2
+Pollution =      0.4
+Recreation =      0
+Employment =      0.1
+Literacy =      0.1
+Crime =            0.13
+HouseholdIncome = 0.12
+GreenSpace = -0.1
+Healthcare = 0
+InternetCoverage = 0.8
+
+[actions.BuildFarm]
+Population =      -0.1
+Pollution =      -0.4
+Recreation =      0.2
+Employment =      0.1
+Literacy =      0
+Crime =          0
+HouseholdIncome = 0.3
+GreenSpace = 0.2
+Healthcare = 0.1
+InternetCoverage = 0
+
+

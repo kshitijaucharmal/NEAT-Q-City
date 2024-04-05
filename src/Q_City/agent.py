@@ -24,7 +24,7 @@ class Agent:
     # create model
     def init_model(self):
         self.g = Genome(self.gh)
-        for i in range(50):
+        for _ in range(50):
             self.g.mutate()
         pass
         self.g_clone = self.g.clone()
@@ -86,5 +86,5 @@ class Agent:
     def store_experience(self, state, action, reward, next_state, done):
         self.replay_memory.append((state, action, reward, next_state, done))
 
-    # def update_target_model(self):
-    #     self.target_model.set_weights(self.model.get_weights())
+    def update_target_model(self):
+        self.target_model = self.g.clone

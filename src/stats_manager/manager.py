@@ -4,7 +4,7 @@ from pprint import pprint
 
 
 class StatManager:
-    def __init__(self, mappings_file="src/stats_manager/data.toml") -> None:
+    def __init__(self, mappings_file="src/stats_manager/new.toml") -> None:
         self.all_stats = {}
         self.all_mappings = {}
 
@@ -36,7 +36,7 @@ class StatManager:
         actions = [a for a in list(self.all_mappings.keys())]
         action_name = actions[action_number]
         for stat in self.all_mappings[action_name].keys():
-            self.all_stats[stat] += self.all_mappings[action_name][stat]
+            self.all_stats[stat] += self.all_mappings[action_name][stat] * 0.001
             self.all_stats[stat] = self.clamp(self.all_stats[stat], 0.0000, 1.0000)
 
     def sample(self):
