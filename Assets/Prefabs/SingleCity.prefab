@@ -527,7 +527,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1695262669209021964, guid: be4aa75ca58e68646b4360e7b8f883a7, type: 3}
       propertyPath: m_text
-      value: Science
+      value: Tower
       objectReference: {fileID: 0}
     - target: {fileID: 6698787331250986785, guid: be4aa75ca58e68646b4360e7b8f883a7, type: 3}
       propertyPath: m_Pivot.x
@@ -777,7 +777,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1695262669209021964, guid: be4aa75ca58e68646b4360e7b8f883a7, type: 3}
       propertyPath: m_text
-      value: Energy
+      value: Police
       objectReference: {fileID: 0}
     - target: {fileID: 6698787331250986785, guid: be4aa75ca58e68646b4360e7b8f883a7, type: 3}
       propertyPath: m_Pivot.x

@@ -11,6 +11,7 @@ public class PopulationManager : MonoBehaviour {
 
     public TMP_Text generationText;
     public int generation = 1;
+    public string[] serverMsgs;
 
     [HideInInspector] public CityManager[] population;
     [HideInInspector] public CityManager selectedCity;
@@ -51,7 +52,7 @@ public class PopulationManager : MonoBehaviour {
             if(episode > maxEpisodes){
                 Reset();
             }
-            string[] serverMsgs = reciever.serverMsg.Split(":");
+            serverMsgs = reciever.serverMsg.Split(":");
             if(serverMsgs.Length != population.Length){
                 Debug.Log("Not enough inputs: " + serverMsgs.Length);
                 return;

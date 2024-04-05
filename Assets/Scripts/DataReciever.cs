@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
@@ -8,6 +9,7 @@ public class DataReciever : MonoBehaviour {
 
   private TcpClient socketConn;
   private Thread clientRcvThread;
+  private string filename = "/home/kshitij/out.txt";
 
   [Range(0.01f, 2f)]public float timeBtwnRecieving = 0.5f;
 
@@ -80,8 +82,8 @@ public class DataReciever : MonoBehaviour {
             var incomingData = new byte[length];
             Array.Copy(bytes, 0, incomingData, 0, length);
             if(single){
-              serverMsg = Encoding.ASCII.GetString(incomingData);
-              messagePresent = true;
+              // serverMsg = Encoding.ASCII.GetString(incomingData);
+              // messagePresent = true;
             }
             else{
               // serverMsgs[port - ports.x] = Encoding.ASCII.GetString(incomingData);
@@ -115,6 +117,11 @@ public class DataReciever : MonoBehaviour {
   }
 
   void Update(){
+    if(File.Exists(filename)){
+      string[] lines = File.ReadAllLines(filename);
+      serverMsg = lines[0];
+      messagePresent = true;
+    }
   }
 
   void OnDestroy(){
