@@ -1,23 +1,131 @@
-## Evolving Deep Q-Learning for Sustainable Virtual City Management (INC @ PICT College)
+# 🏙️ Evolving Deep Q-Learning for Sustainable Virtual City Management  
+> **INC Competition @ PICT College**
 
-This project investigates the synergy between Deep Q-learning (DQL)
-and Neuro-Evolution of Augmenting Topologies (NEAT) for managing a dynamic,
-virtual city simulation within the context of the INC competition at PICT College.
 
-The goal is to develop an AI agent that learns optimal decisions to enhance the city's well-being,
-balancing factors like air quality, resource management, and economic growth.
 
-**Approach:**
+https://github.com/user-attachments/assets/715f0cfa-25ee-43c6-874f-c19d476524db
 
-1. **Simulated City Environment:** We create a simulated virtual city environment that captures essential aspects like air quality index, resource levels, and economic indicators. The environment provides state information (e.g., current air quality) and responds to the agent's actions (e.g., building infrastructure).
-2. **Deep Q-Learning Agent:** A DQL agent interacts with the simulated city. It receives state information from the environment, employs a deep neural network to predict future rewards for different actions, and takes the action with the highest predicted reward. The agent's performance is evaluated based on a reward function that incentivizes sustainable and beneficial actions for the city.
-3. **NEAT for Evolving Network Topologies:** NEAT manages a population of diverse DQL agents with varying network configurations. Through mutation operators (adding/removing connections or nodes) and crossover (combining genetic material), NEAT fosters the evolution of potentially more effective agents across generations. In each generation, agents are evaluated based on their performance within the simulated city, and the best-performing agents are selected for reproduction with variations introduced through mutations.
 
-**Execution:**
+![City Screenshot 1](https://github.com/user-attachments/assets/774b8fbc-e6a4-4d28-9e7a-2f16df34991a)
 
-1. **Set Up Simulation and Parameters:** Configure the simulation environment, DQL parameters (network architecture, learning rate), and NEAT parameters (population size, mutation rate).
-2. **Run NEAT Evolution:** NEAT iterates through generations, evaluating the performance of each agent in the simulated city and selecting the best ones for reproduction with mutations, leading to a population with potentially improved decision-making strategies.
-3. **Evaluation and Visualization (Optional):** Track and visualize the performance of agents across generations, analyzing how the evolved agents' actions impact the virtual city's sustainability metrics.
+---
 
-This project explores the potential of combining DQL and NEAT for evolving effective AI agents to manage complex urban environments in a simulated setting. By participating in the INC competition, we aim to showcase this approach and contribute to advancements in AI-powered urban planning and policy optimization.
+## 📘 Overview
 
+This project investigates the **synergy between Deep Q-Learning (DQL)** and **Neuro-Evolution of Augmenting Topologies (NEAT)** to manage a **dynamic virtual city simulation**. It was developed for the **INC competition at PICT College**.
+
+Our goal is to evolve intelligent agents capable of **making sustainable decisions** for city growth — optimizing air quality, resource usage, and economic stability.
+
+---
+
+## 🧠 Technologies Used
+
+- **Python 3**
+- **Unity (custom environment)**
+- **Numpy** – for Deep Q-Network implementation
+
+---
+
+## 🌍 Core Features
+
+✅ **Simulated Urban Environment**  
+✅ **Deep Q-Learning Agents**  
+✅ **NEAT-based Topology Evolution**  
+✅ **Sustainability-Oriented Reward Function**  
+✅ **Dynamic Visualization & Logging**
+
+---
+
+## ⚙️ How It Works
+
+### 1. 🏗️ Simulated City Environment
+
+A custom environment captures:
+* 🧍‍♂️ **Population Density**
+* 🌫️ **Pollution**
+* 🏞️ **Recreation**
+* 📚 **Literacy Rate**
+* 🚓 **Crime Rate**
+* 💵 **Household Income**
+* 🌳 **Green Space**
+* 🏥 **Healthcare**
+* 💼 **Employment Rate**
+* 🌐 **Internet Coverage**
+
+
+The environment returns **state vectors** and responds to **agent actions** like upgrading infrastructure, allocating resources, or introducing policies.
+
+---
+
+### 2. 🤖 Deep Q-Learning Agent
+
+Each agent:
+- Uses a **neural network** to map states → action-values (Q-values)
+- Chooses actions with **ε-greedy** strategy
+- Learns via **experience replay** and **Bellman updates**
+- Is rewarded for decisions that lead to a more **sustainable and balanced city**
+
+---
+
+### 3. 🧬 NEAT for Evolution
+
+NEAT evolves a **population of DQL agents** by:
+- **Mutating network structures** (adding/removing nodes and connections)
+- **Crossover** between top-performing agents
+- Selecting agents with the **best reward scores** from simulation runs
+
+This enables **dynamic exploration of network topologies** to discover better policies.
+
+---
+
+### 4. 📈 Evaluation & Visualization
+
+Optional logging tools help track:
+- Average reward per generation
+- Performance trends over time
+- Impact of evolved agents on air quality, economy, and resource usage
+- Custom Environment in Unity used to visualise and simulate
+
+---
+
+## 📊 Sample Outputs
+
+* 🏥 **Building Hospital**
+* 🌳 **Building Park**
+* 🏭 **Building Factory**
+* 🛣️ **Expand Roads**
+* 🏫 **Building Education Institutes**
+* 🏘️ **Residential Building**
+* 🏢 **Building Offices**
+* 🚓 **Building Police Station**
+* 📡 **Building Communication Tower**
+* 🚜 **Building Farms**
+
+Currently, the simulation can build these buildings, which are placed randomly in the city, but later,
+the agent will be able to process a position for the buildings as well
+
+---
+
+## 🏁 Outcome
+
+This hybrid DQL + NEAT approach:
+- Adaptively **evolves agent architectures** and **training policies**
+- Learns to **balance trade-offs** between air quality, economy, and resource usage
+- Demonstrates the potential of **neuro-evolution in urban planning**
+
+---
+
+## 🙌 Acknowledgments
+
+- **INC 2025 @ PICT College** for the platform  
+- Research on **NEAT By Kenneth O. Stanley** for guiding our evolution strategy
+
+---
+
+## 📜 License
+
+MIT License. See [LICENSE](LICENSE) for details.
+
+---
+
+> _“AI should not just optimize pixels — it should evolve policies that improve life, even in simulations.”_
